@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace TheSurvivor
 {
-    static class Program
+    static class Survivor
     {
         /// <summary>
         /// The main entry point for the application.
@@ -15,8 +15,8 @@ namespace TheSurvivor
         static void Main()
         {
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GameForm());
+            Application.SetCompatibleTextRenderingDefault(true);
+            Application.Run(new Forms.MainMenu());
         }
     }
 }
