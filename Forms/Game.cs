@@ -31,11 +31,12 @@ namespace TheSurvivor
             NativeWinAPI.SetWindowLong(this.Handle, NativeWinAPI.GWL_EXSTYLE, style);
         }
 
-        private void GameForm_Load(object sender, EventArgs e)
+        private void Game_Load(object sender, EventArgs e)
         {
             SoundPlayer soundTrack = new SoundPlayer(@"C:/Users/zakar/Downloads/test.wav");
             //soundTrack.Play();
 
+            playerObject.BackColor = Color.Transparent;
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -48,8 +49,8 @@ namespace TheSurvivor
             // Keep the player within the form window
             if (playerObject.Location.X <= 0)
                 playerObject.Location = new Point(0, playerObject.Location.Y);
-            if (playerObject.Location.X >= Width)
-                playerObject.Location = new Point(Width, playerObject.Location.Y);
+            if (playerObject.Location.X >= Width - playerObject.Width)
+                playerObject.Location = new Point(Width - playerObject.Width, playerObject.Location.Y);
             
             foreach (Control control in Controls)
             {
@@ -59,6 +60,9 @@ namespace TheSurvivor
                     {
                         playerObject.Top -= 1 * player.GetPlayerSpeed();
                     }
+
+                     if (playerObject.Bounds.Bottom == control.Bounds.Top)
+                        playerObject.Top -= 1 * player.GetPlayerSpeed();
                 }
             }
 
@@ -84,7 +88,7 @@ namespace TheSurvivor
             playerObject.Left += 1 * player.GetPlayerSpeed();
         }
 
-        private void GameForm_KeyDown(object sender, KeyEventArgs e)
+        private void Game_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Space)
                 upMovement.Start();
@@ -111,7 +115,7 @@ namespace TheSurvivor
             }
         }
 
-        private void GameForm_KeyUp(object sender, KeyEventArgs e)
+        private void Game_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Space)
             {
@@ -126,12 +130,16 @@ namespace TheSurvivor
 
         private void btnContinue_Click(object sender, EventArgs e)
         {
+            // TODO: Fix input not working after clicking continue
             pausePanel.Visible = false;
             isPaused = false;
         }
 
         private void btnOptions_Click(object sender, EventArgs e)
         {
+            Forms.Options options = new Forms.Options();
+
+            options.Show();
             
         }
 
@@ -139,6 +147,7 @@ namespace TheSurvivor
         {
             Application.Exit();
         }
+
     }
 
 

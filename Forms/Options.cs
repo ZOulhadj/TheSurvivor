@@ -20,7 +20,7 @@ namespace TheSurvivor.Forms
         private void btnBack_Click(object sender, EventArgs e)
         {
             MainMenu mainMenuForm = new MainMenu();
-
+            
             mainMenuForm.Show();
             Hide();
         }

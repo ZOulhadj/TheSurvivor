@@ -40,13 +40,13 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.playerObject = new System.Windows.Forms.Panel();
             this.ground = new System.Windows.Forms.PictureBox();
             this.platform = new System.Windows.Forms.PictureBox();
             this.gameBackground = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.playerObject = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.pausePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -159,21 +159,11 @@
             this.pictureBox1.Location = new System.Drawing.Point(149, 196);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(188, 40);
+            this.pictureBox1.Size = new System.Drawing.Size(188, 41);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Tag = "platform";
-            // 
-            // playerObject
-            // 
-            this.playerObject.BackgroundImage = global::TheSurvivor.Properties.Resources.Player;
-            this.playerObject.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.playerObject.Location = new System.Drawing.Point(111, 312);
-            this.playerObject.Margin = new System.Windows.Forms.Padding(0);
-            this.playerObject.Name = "playerObject";
-            this.playerObject.Size = new System.Drawing.Size(156, 148);
-            this.playerObject.TabIndex = 4;
             // 
             // ground
             // 
@@ -239,6 +229,16 @@
             this.pictureBox6.TabIndex = 15;
             this.pictureBox6.TabStop = false;
             // 
+            // playerObject
+            // 
+            this.playerObject.BackgroundImage = global::TheSurvivor.Properties.Resources.player;
+            this.playerObject.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.playerObject.Location = new System.Drawing.Point(77, 448);
+            this.playerObject.Margin = new System.Windows.Forms.Padding(0);
+            this.playerObject.Name = "playerObject";
+            this.playerObject.Size = new System.Drawing.Size(65, 61);
+            this.playerObject.TabIndex = 4;
+            // 
             // Game
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -262,9 +262,9 @@
             this.Name = "Game";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "The Survior";
-            this.Load += new System.EventHandler(this.GameForm_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameForm_KeyDown);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameForm_KeyUp);
+            this.Load += new System.EventHandler(this.Game_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Game_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Game_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.pausePanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -285,7 +285,6 @@
         private System.Windows.Forms.PictureBox ground;
         private System.Windows.Forms.PictureBox platform;
         private System.Windows.Forms.Timer timer;
-        private System.Windows.Forms.Panel playerObject;
         private System.Windows.Forms.Panel pausePanel;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Timer leftMovement;
@@ -299,6 +298,7 @@
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.PictureBox pictureBox6;
+        private System.Windows.Forms.Panel playerObject;
     }
 }
 
