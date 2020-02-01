@@ -47,6 +47,7 @@
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.playerObject = new System.Windows.Forms.Panel();
+            this.lblScore = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.pausePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -92,13 +93,12 @@
             // 
             // pausePanel
             // 
-            this.pausePanel.BackColor = System.Drawing.SystemColors.Info;
-            this.pausePanel.BackgroundImage = global::TheSurvivor.Properties.Resources.Background;
+            this.pausePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.pausePanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pausePanel.Controls.Add(this.btnContinue);
             this.pausePanel.Controls.Add(this.btnOptions);
             this.pausePanel.Controls.Add(this.btnExit);
-            this.pausePanel.Location = new System.Drawing.Point(270, 12);
+            this.pausePanel.Location = new System.Drawing.Point(286, 12);
             this.pausePanel.Name = "pausePanel";
             this.pausePanel.Size = new System.Drawing.Size(373, 537);
             this.pausePanel.TabIndex = 5;
@@ -168,10 +168,10 @@
             // ground
             // 
             this.ground.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.ground.Location = new System.Drawing.Point(-11, 535);
+            this.ground.Location = new System.Drawing.Point(-11, 498);
             this.ground.Margin = new System.Windows.Forms.Padding(0);
             this.ground.Name = "ground";
-            this.ground.Size = new System.Drawing.Size(919, 32);
+            this.ground.Size = new System.Drawing.Size(919, 69);
             this.ground.TabIndex = 2;
             this.ground.TabStop = false;
             // 
@@ -191,7 +191,7 @@
             // 
             // gameBackground
             // 
-            this.gameBackground.Image = global::TheSurvivor.Properties.Resources.Background2;
+            this.gameBackground.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.gameBackground.Location = new System.Drawing.Point(-92, -3);
             this.gameBackground.Name = "gameBackground";
             this.gameBackground.Size = new System.Drawing.Size(988, 598);
@@ -233,11 +233,22 @@
             // 
             this.playerObject.BackgroundImage = global::TheSurvivor.Properties.Resources.player;
             this.playerObject.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.playerObject.Location = new System.Drawing.Point(77, 448);
+            this.playerObject.Location = new System.Drawing.Point(83, 356);
             this.playerObject.Margin = new System.Windows.Forms.Padding(0);
             this.playerObject.Name = "playerObject";
             this.playerObject.Size = new System.Drawing.Size(65, 61);
             this.playerObject.TabIndex = 4;
+            // 
+            // lblScore
+            // 
+            this.lblScore.AutoSize = true;
+            this.lblScore.BackColor = System.Drawing.SystemColors.Control;
+            this.lblScore.Font = new System.Drawing.Font("Office Code Pro", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblScore.Location = new System.Drawing.Point(12, 9);
+            this.lblScore.Name = "lblScore";
+            this.lblScore.Size = new System.Drawing.Size(228, 60);
+            this.lblScore.TabIndex = 16;
+            this.lblScore.Text = "Score: ";
             // 
             // Game
             // 
@@ -245,16 +256,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(892, 561);
             this.ControlBox = false;
+            this.Controls.Add(this.pausePanel);
+            this.Controls.Add(this.lblScore);
+            this.Controls.Add(this.pictureBox3);
+            this.Controls.Add(this.platform);
             this.Controls.Add(this.pictureBox6);
             this.Controls.Add(this.pictureBox5);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.pausePanel);
-            this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.playerObject);
             this.Controls.Add(this.ground);
-            this.Controls.Add(this.platform);
             this.Controls.Add(this.gameBackground);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -276,6 +288,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -299,6 +312,7 @@
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.Panel playerObject;
+        private System.Windows.Forms.Label lblScore;
     }
 }
 

@@ -1,19 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
-using System.Runtime.InteropServices;
 using TheSurvivor.Source;
 
 namespace TheSurvivor
 {
-
     public partial class Game : Form
     {
         bool isPaused = false;
@@ -24,11 +16,6 @@ namespace TheSurvivor
         public Game()
         {
             InitializeComponent();
-
-            // Fixes flickering
-            int style = NativeWinAPI.GetWindowLong(this.Handle, NativeWinAPI.GWL_EXSTYLE);
-            style |= NativeWinAPI.WS_EX_COMPOSITED;
-            NativeWinAPI.SetWindowLong(this.Handle, NativeWinAPI.GWL_EXSTYLE, style);
         }
 
         private void Game_Load(object sender, EventArgs e)
@@ -54,7 +41,7 @@ namespace TheSurvivor
             
             foreach (Control control in Controls)
             {
-                if (control.Tag == "platform" && isJumping == false)
+                if ((string)control.Tag == "platform" && isJumping == false)
                 {
                     if (playerObject.Bounds.IntersectsWith(control.Bounds))
                     {
@@ -148,19 +135,5 @@ namespace TheSurvivor
             Application.Exit();
         }
 
-    }
-
-
-    // Note: Fixes flickering
-    internal static class NativeWinAPI
-    {
-        internal static readonly int GWL_EXSTYLE = -20;
-        internal static readonly int WS_EX_COMPOSITED = 0x02000000;
-
-        [DllImport("user32")]
-        internal static extern int GetWindowLong(IntPtr hWnd, int nIndex);
-
-        [DllImport("user32")]
-        internal static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
     }
 }
