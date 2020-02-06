@@ -46,7 +46,10 @@
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.playerObject = new System.Windows.Forms.Panel();
+            this.playerControl = new System.Windows.Forms.Panel();
+            this.xAxisMovementTimer = new System.Windows.Forms.Timer(this.components);
+            this.yAxisMovementTimer = new System.Windows.Forms.Timer(this.components);
+            this.lavaControl = new System.Windows.Forms.PictureBox();
             this.pausePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
@@ -60,6 +63,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lavaControl)).BeginInit();
             this.SuspendLayout();
             // 
             // timer
@@ -185,10 +189,10 @@
             // ground
             // 
             this.ground.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.ground.Location = new System.Drawing.Point(-5, 690);
+            this.ground.Location = new System.Drawing.Point(-5, 724);
             this.ground.Margin = new System.Windows.Forms.Padding(0);
             this.ground.Name = "ground";
-            this.ground.Size = new System.Drawing.Size(922, 68);
+            this.ground.Size = new System.Drawing.Size(922, 34);
             this.ground.TabIndex = 2;
             this.ground.TabStop = false;
             this.ground.Tag = "platform";
@@ -243,17 +247,39 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Tag = "platform";
             // 
-            // playerObject
+            // playerControl
             // 
-            this.playerObject.BackColor = System.Drawing.Color.Transparent;
-            this.playerObject.BackgroundImage = global::TheSurvivor.Properties.Resources.player;
-            this.playerObject.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.playerObject.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.playerObject.Location = new System.Drawing.Point(455, 345);
-            this.playerObject.Margin = new System.Windows.Forms.Padding(0);
-            this.playerObject.Name = "playerObject";
-            this.playerObject.Size = new System.Drawing.Size(22, 24);
-            this.playerObject.TabIndex = 4;
+            this.playerControl.BackColor = System.Drawing.Color.Transparent;
+            this.playerControl.BackgroundImage = global::TheSurvivor.Properties.Resources.player;
+            this.playerControl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.playerControl.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.playerControl.Location = new System.Drawing.Point(455, 345);
+            this.playerControl.Margin = new System.Windows.Forms.Padding(0);
+            this.playerControl.Name = "playerControl";
+            this.playerControl.Size = new System.Drawing.Size(22, 24);
+            this.playerControl.TabIndex = 4;
+            // 
+            // xAxisMovementTimer
+            // 
+            this.xAxisMovementTimer.Enabled = true;
+            this.xAxisMovementTimer.Interval = 1;
+            this.xAxisMovementTimer.Tick += new System.EventHandler(this.xAxisMovementTimer_Tick);
+            // 
+            // yAxisMovementTimer
+            // 
+            this.yAxisMovementTimer.Enabled = true;
+            this.yAxisMovementTimer.Interval = 1;
+            this.yAxisMovementTimer.Tick += new System.EventHandler(this.yAxisMovementTimer_Tick);
+            // 
+            // lavaControl
+            // 
+            this.lavaControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lavaControl.Location = new System.Drawing.Point(-5, 681);
+            this.lavaControl.Name = "lavaControl";
+            this.lavaControl.Size = new System.Drawing.Size(922, 58);
+            this.lavaControl.TabIndex = 24;
+            this.lavaControl.TabStop = false;
+            this.lavaControl.Tag = "platform";
             // 
             // Game
             // 
@@ -265,16 +291,17 @@
             this.Controls.Add(this.pictureBox5);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.ground);
+            this.Controls.Add(this.lavaControl);
             this.Controls.Add(this.pausePanel);
             this.Controls.Add(this.pictureBox11);
             this.Controls.Add(this.pictureBox10);
-            this.Controls.Add(this.ground);
             this.Controls.Add(this.pictureBox9);
             this.Controls.Add(this.pictureBox8);
             this.Controls.Add(this.pictureBox7);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.playerObject);
+            this.Controls.Add(this.playerControl);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -296,6 +323,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lavaControl)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -316,9 +344,12 @@
         private System.Windows.Forms.PictureBox pictureBox7;
         private System.Windows.Forms.PictureBox pictureBox8;
         private System.Windows.Forms.PictureBox pictureBox9;
-        private System.Windows.Forms.Panel playerObject;
+        private System.Windows.Forms.Panel playerControl;
         private System.Windows.Forms.PictureBox pictureBox10;
         private System.Windows.Forms.PictureBox pictureBox11;
+        private System.Windows.Forms.Timer xAxisMovementTimer;
+        private System.Windows.Forms.Timer yAxisMovementTimer;
+        private System.Windows.Forms.PictureBox lavaControl;
     }
 }
 

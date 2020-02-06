@@ -7,44 +7,35 @@ using System.Windows.Forms;
 
 namespace TheSurvivor.Source
 {
-    enum Key
-    {
-        KEY_A,
-        KEY_D,
-        KEY_SPACE,
-        KEY_ESCAPE,
-        KEY_NONE
+    enum KeyEvent
+    { 
+        KEY_PRESSED,
+        KEY_RELEASED
     }
 
     class Input
     {
-        private Key m_CurrentKey = Key.KEY_NONE;
-
-
-        public void SetKeyDown(Keys keys)
+        private Dictionary<Keys, KeyEvent> m_Keys = new Dictionary<Keys, KeyEvent>
         {
-            switch (keys)
-            {
-                case Keys.A:
-                    m_CurrentKey = Key.KEY_A;
-                break;
-                case Keys.D:
-                    m_CurrentKey = Key.KEY_D;
-                    break;
-                case Keys.Space:
-                    m_CurrentKey = Key.KEY_SPACE;
-                    break;
-                case Keys.Escape:
-                    m_CurrentKey = Key.KEY_ESCAPE;
-                    break;
-            }
+            { Keys.A,       KeyEvent.KEY_RELEASED },
+            { Keys.D,       KeyEvent.KEY_RELEASED },
+            { Keys.Space,   KeyEvent.KEY_RELEASED }
+        };
+
+
+        public void SetKeyPressed(Keys key)
+        {
+            m_Keys[key] = KeyEvent.KEY_PRESSED;
         }
 
-        public void SetKeyReleased()
+        public void SetKeyReleased(Keys key)
         {
-            m_CurrentKey = Key.KEY_NONE;
+            m_Keys[key] = KeyEvent.KEY_RELEASED;
         }
 
-        public Key GetCurrentKey() { return m_CurrentKey; }
+        public bool IsKeyPressed(Keys key)
+        {
+            return m_Keys[key] == KeyEvent.KEY_PRESSED;
+        }
     }
 }

@@ -9,58 +9,46 @@ namespace TheSurvivor
 
     public partial class Game : Form
     {
+        Random rand = new Random();
         Player player;
-
+        Input input = new Input();
+        
         public Game()
         {
             InitializeComponent();
             
             // Initialise sub components
-            player = new Player(playerObject);
+            player = new Player(playerControl);
+
+            for (int i = 0; i < 150; ++i)
+            {
+                PictureBox platform = new PictureBox();
+                platform.ClientSize = new Size(80, rand.Next(10, 100));
+                platform.Location = new Point(rand.Next(0, ClientSize.Width), -rand.Next(0, 10000));
+                platform.BackColor = Color.Red;
+                platform.Margin = new Padding(200);
+                platform.Tag = "platform";
+                platform.BringToFront();
+                Controls.Add(platform);
+            }
         }
 
         private void timer_Tick(object sender, EventArgs e)
         {
             // Player movement
-            switch (player.input.GetCurrentKey())
+            if (input.IsKeyPressed(Keys.A) || input.IsKeyPressed(Keys.D))
             {
-                case Key.KEY_A:
-                    foreach (Control control in Controls)
-                    {
-                        if ((string)control.Tag == "platform")
-                        {
-                            control.Left += player.GetSpeed();
-                        }
-                    }
-                    break;
-                case Key.KEY_D:
-                    foreach (Control control in Controls)
-                    {
-                        if ((string)control.Tag == "platform")
-                        {
-                            control.Left -= player.GetSpeed();
-                        }
-                    }
-                    break;
-                case Key.KEY_SPACE:
-                    // Move all platforms down during jump
-                    foreach (Control control in Controls)
-                    {
-                        if ((string)control.Tag == "platform")
-                        {
-                            control.Top += player.GetSpeed();
-                        }
-                    }
-                    player.SetJumping(true);
-                    break;
-                default:
-                    player.SetJumping(false);
-                    break;
+                xAxisMovementTimer.Start();
+            } else if (input.IsKeyPressed(Keys.Space))
+            {
+                yAxisMovementTimer.Start();
             }
 
-            // Check if the player is colliding with an object while not jumping
             foreach (Control control in Controls)
             {
+                // If control location is outside the window then discard it from rendering
+
+                // Check if the player is colliding with an object while not jumping
                 if ((string)control.Tag == "platform" && !player.IsJumping())
                 {
                     if (control.Left < player.GetPlayer().Left + player.GetPlayer().Width &&
@@ -69,6 +57,11 @@ namespace TheSurvivor
                         control.Top + control.Height > player.GetPlayer().Top)
                     {
                         player.m_Collision = true;
+                        control.BackColor = Color.Green;
+                    }
+                    else
+                    {
+                        control.BackColor = Color.White;
                     }
                 }
             }
@@ -92,19 +85,77 @@ namespace TheSurvivor
                 }
 
             }
-
             // Reset collision flag
             player.m_Collision = false;
+
+            // Increase lava height over time
+            //lavaControl.Top -= 1;
+            //lavaControl.Height += 1;
+
+        }
+
+        private void xAxisMovementTimer_Tick(object sender, EventArgs e)
+        {
+            if (input.IsKeyPressed(Keys.A))
+            {
+                foreach (Control control in Controls)
+                {
+                    if ((string)control.Tag == "platform")
+                    {
+                        control.Left += player.GetSpeed();
+                    }
+                }
+            }
+
+            if (input.IsKeyPressed(Keys.D))
+            {
+                foreach (Control control in Controls)
+                {
+                    if ((string)control.Tag == "platform")
+                    {
+                        control.Left -= player.GetSpeed();
+                    }
+                }
+            }
+        }
+
+        private void yAxisMovementTimer_Tick(object sender, EventArgs e)
+        {
+            if (input.IsKeyPressed(Keys.Space))
+            {
+                // Move all platforms down during jump
+                foreach (Control control in Controls)
+                {
+                    if ((string)control.Tag == "platform")
+                    {
+                        control.Top += player.GetSpeed();
+                    }
+                }
+                player.SetJumping(true);
+            }
+            else
+            {
+                player.SetJumping(false);
+            }
         }
 
         private void Game_KeyDown(object sender, KeyEventArgs e)
         {
-            player.input.SetKeyDown(e.KeyCode);
+            input.SetKeyPressed(e.KeyCode);
         }
 
         private void Game_KeyUp(object sender, KeyEventArgs e)
         {
-            player.input.SetKeyReleased();
+            input.SetKeyReleased(e.KeyCode);
+
+            if (!input.IsKeyPressed(Keys.A) || !input.IsKeyPressed(Keys.D))
+            {
+                xAxisMovementTimer.Stop();
+            }
+            else if (!input.IsKeyPressed(Keys.Space))
+            {
+                yAxisMovementTimer.Stop();
+            }
         }
 
         private void btnContinue_Click(object sender, EventArgs e)

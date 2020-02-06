@@ -15,14 +15,13 @@ namespace TheSurvivor.Source
         public bool m_Collision = false;
         private bool m_IsJumping = false;
 
-        public Input input = new Input();
-
         public Player(Panel player)
         {
             m_Player = player;
         }
 
         ~Player() {}
+
 
 
         public void SetJumping(bool isJumping) { m_IsJumping = isJumping; }
