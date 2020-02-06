@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,26 +10,27 @@ namespace TheSurvivor.Source
 {
     class Player
     {
-        private int playerSpeed = 10;
+        private Panel m_Player;
+        private int m_PlayerSpeed = 10;
+        public bool m_Collision = false;
+        private bool m_IsJumping = false;
 
-        public Player()
+        public Input input = new Input();
+
+        public Player(Panel player)
         {
-            
-            //p.Location = new System.Drawing.Point(150, 473);
-            //p.Name = "object";
-            //p.Size = new System.Drawing.Size(playerSize.Item1, playerSize.Item2);
-            //p.TabIndex = 4;
+            m_Player = player;
         }
 
-        public int GetPlayerSpeed()
-        {
-            return playerSpeed;
-        }
+        ~Player() {}
 
-        public Panel GetPlayer()
-        {
-            //return p;
-            return new Panel();
-        }
+
+        public void SetJumping(bool isJumping) { m_IsJumping = isJumping; }
+
+        public bool IsJumping() { return m_IsJumping; }
+
+        public Panel GetPlayer() { return m_Player; }
+
+        public int GetSpeed() { return m_PlayerSpeed; }
     }
 }

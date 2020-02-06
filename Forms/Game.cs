@@ -6,120 +6,112 @@ using TheSurvivor.Source;
 
 namespace TheSurvivor
 {
+
     public partial class Game : Form
     {
-        bool isPaused = false;
-        bool isJumping = false;
-
-        Player player = new Player();
+        Player player;
 
         public Game()
         {
             InitializeComponent();
-        }
-
-        private void Game_Load(object sender, EventArgs e)
-        {
-            SoundPlayer soundTrack = new SoundPlayer(@"C:/Users/zakar/Downloads/test.wav");
-            //soundTrack.Play();
-
-            playerObject.BackColor = Color.Transparent;
+            
+            // Initialise sub components
+            player = new Player(playerObject);
         }
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            if (!playerObject.Bounds.IntersectsWith(ground.Bounds) && isJumping == false)
+            // Player movement
+            switch (player.input.GetCurrentKey())
             {
-                playerObject.Top += 1 * player.GetPlayerSpeed();
+                case Key.KEY_A:
+                    foreach (Control control in Controls)
+                    {
+                        if ((string)control.Tag == "platform")
+                        {
+                            control.Left += player.GetSpeed();
+                        }
+                    }
+                    break;
+                case Key.KEY_D:
+                    foreach (Control control in Controls)
+                    {
+                        if ((string)control.Tag == "platform")
+                        {
+                            control.Left -= player.GetSpeed();
+                        }
+                    }
+                    break;
+                case Key.KEY_SPACE:
+                    // Move all platforms down during jump
+                    foreach (Control control in Controls)
+                    {
+                        if ((string)control.Tag == "platform")
+                        {
+                            control.Top += player.GetSpeed();
+                        }
+                    }
+                    player.SetJumping(true);
+                    break;
+                default:
+                    player.SetJumping(false);
+                    break;
             }
 
-            // Keep the player within the form window
-            if (playerObject.Location.X <= 0)
-                playerObject.Location = new Point(0, playerObject.Location.Y);
-            if (playerObject.Location.X >= Width - playerObject.Width)
-                playerObject.Location = new Point(Width - playerObject.Width, playerObject.Location.Y);
-            
+            // Check if the player is colliding with an object while not jumping
             foreach (Control control in Controls)
             {
-                if ((string)control.Tag == "platform" && isJumping == false)
+                if ((string)control.Tag == "platform" && !player.IsJumping())
                 {
-                    if (playerObject.Bounds.IntersectsWith(control.Bounds))
+                    if (control.Left < player.GetPlayer().Left + player.GetPlayer().Width &&
+                        control.Left + control.Width > player.GetPlayer().Left &&
+                        control.Top < player.GetPlayer().Top + player.GetPlayer().Height &&
+                        control.Top + control.Height > player.GetPlayer().Top)
                     {
-                        playerObject.Top -= 1 * player.GetPlayerSpeed();
+                        player.m_Collision = true;
                     }
-
-                     if (playerObject.Bounds.Bottom == control.Bounds.Top)
-                        playerObject.Top -= 1 * player.GetPlayerSpeed();
                 }
             }
 
-            if (playerObject.Bounds.IntersectsWith(platform.Bounds))
+            // Second pass to move or keep the platforms stationary
+            foreach (Control control in Controls)
             {
-                playerObject.Top -= 1 * player.GetPlayerSpeed();
+                if ((string)control.Tag == "platform" && !player.IsJumping())
+                {
+                    if (player.m_Collision)
+                    {
+                        /* Find out which way the world needs to be transformed
+                         * based on which side the player is colliding with
+                         * the object.
+                         */
+                    }
+                    else
+                    {
+                        control.Top -= player.GetSpeed();
+                    }
+                }
+
             }
-        }
 
-        private void upMovement_Tick(object sender, EventArgs e)
-        {
-            playerObject.Top -= 1 * player.GetPlayerSpeed();
-            isJumping = true;
-        }
-
-        private void leftMovement_Tick(object sender, EventArgs e)
-        {
-            playerObject.Left -= 1 * player.GetPlayerSpeed();
-        }
-
-        private void rightMovement_Tick(object sender, EventArgs e)
-        {
-            playerObject.Left += 1 * player.GetPlayerSpeed();
+            // Reset collision flag
+            player.m_Collision = false;
         }
 
         private void Game_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Space)
-                upMovement.Start();
-            if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
-                leftMovement.Start();
-            if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
-                rightMovement.Start();
-
-
-            // Handle pause menu from within the game
-            if (e.KeyCode == Keys.Escape)
-            {
-                if (isPaused)
-                {
-                    pausePanel.Visible = false;
-                    isPaused = false;
-                }
-                else
-                {
-                    pausePanel.Visible = true;
-                    isPaused = true;
-                }
-
-            }
+            player.input.SetKeyDown(e.KeyCode);
         }
 
         private void Game_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Space)
-            {
-                upMovement.Stop();
-                isJumping = false;
-            }
-            if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
-                leftMovement.Stop();
-            if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
-                rightMovement.Stop();
+            player.input.SetKeyReleased();
         }
 
         private void btnContinue_Click(object sender, EventArgs e)
         {
             // TODO: Fix input not working after clicking continue
             pausePanel.Visible = false;
-            isPaused = false;
+            //isPaused = false;
         }
 
         private void btnOptions_Click(object sender, EventArgs e)
@@ -134,6 +126,5 @@ namespace TheSurvivor
         {
             Application.Exit();
         }
-
     }
 }
