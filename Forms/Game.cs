@@ -36,18 +36,20 @@ namespace TheSurvivor
 
                     Controls.Add(platform);
                 }
-                else
-                {
-                    PictureBox platform = new PictureBox();
-                    platform.ClientSize = new Size(ClientSize.Width, 20);
-                    platform.Padding = new Padding(500);
-                    platform.Location = new Point(0, ClientSize.Height);
-                    platform.BackColor = Color.FromArgb(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
-                    platform.Tag = "platform";
-                    platform.BringToFront();
 
-                    Controls.Add(platform);
-                }
+                // TODO: Add a final platform
+                //else
+                //{
+                //    PictureBox platform = new PictureBox();
+                //    platform.ClientSize = new Size(ClientSize.Width, 20);
+                //    platform.Padding = new Padding(500);
+                //    platform.Location = new Point(0, ClientSize.Height);
+                //    platform.BackColor = Color.FromArgb(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
+                //    platform.Tag = "platform";
+                //    platform.BringToFront();
+
+                //    Controls.Add(platform);
+                //}
             }
         }
 
