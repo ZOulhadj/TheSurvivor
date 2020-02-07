@@ -20,16 +20,34 @@ namespace TheSurvivor
             // Initialise sub components
             player = new Player(playerControl);
 
-            for (int i = 0; i < 150; ++i)
+            // Platform generation
+            int platformCount = 150;
+            for (int i = 0; i < platformCount; ++i)
             {
-                PictureBox platform = new PictureBox();
-                platform.ClientSize = new Size(80, rand.Next(10, 100));
-                platform.Location = new Point(rand.Next(0, ClientSize.Width), -rand.Next(0, 10000));
-                platform.BackColor = Color.Red;
-                platform.Margin = new Padding(200);
-                platform.Tag = "platform";
-                platform.BringToFront();
-                Controls.Add(platform);
+                if (i < platformCount - 1)
+                {
+                    PictureBox platform = new PictureBox();
+                    platform.ClientSize = new Size(rand.Next(50, 100), 20);
+                    platform.Padding = new Padding(500);
+                    platform.Location = new Point(rand.Next(100, ClientSize.Width - 100), rand.Next(ClientSize.Height - 100, 10000));
+                    platform.BackColor = Color.FromArgb(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
+                    platform.Tag = "platform";
+                    platform.BringToFront();
+
+                    Controls.Add(platform);
+                }
+                else
+                {
+                    PictureBox platform = new PictureBox();
+                    platform.ClientSize = new Size(ClientSize.Width, 20);
+                    platform.Padding = new Padding(500);
+                    platform.Location = new Point(0, ClientSize.Height);
+                    platform.BackColor = Color.FromArgb(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
+                    platform.Tag = "platform";
+                    platform.BringToFront();
+
+                    Controls.Add(platform);
+                }
             }
         }
 
@@ -57,11 +75,11 @@ namespace TheSurvivor
                         control.Top + control.Height > player.GetPlayer().Top)
                     {
                         player.m_Collision = true;
-                        control.BackColor = Color.Green;
+                        //control.BackColor = Color.Green;
                     }
                     else
                     {
-                        control.BackColor = Color.White;
+                        //control.BackColor = Color.White;
                     }
                 }
             }
@@ -98,24 +116,26 @@ namespace TheSurvivor
         {
             if (input.IsKeyPressed(Keys.A))
             {
-                foreach (Control control in Controls)
-                {
-                    if ((string)control.Tag == "platform")
-                    {
-                        control.Left += player.GetSpeed();
-                    }
-                }
+                //foreach (Control control in Controls)
+                //{
+                //    if ((string)control.Tag == "platform")
+                //    {
+                //        control.Left += player.GetSpeed();
+                //    }
+                //}
+                player.GetPlayer().Left -= player.GetSpeed();
             }
 
             if (input.IsKeyPressed(Keys.D))
             {
-                foreach (Control control in Controls)
-                {
-                    if ((string)control.Tag == "platform")
-                    {
-                        control.Left -= player.GetSpeed();
-                    }
-                }
+                //foreach (Control control in Controls)
+                //{
+                //    if ((string)control.Tag == "platform")
+                //    {
+                //        control.Left -= player.GetSpeed();
+                //    }
+                //}
+                player.GetPlayer().Left += player.GetSpeed();
             }
         }
 
