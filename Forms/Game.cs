@@ -1,65 +1,120 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Media;
 using TheSurvivor.Source;
+using TheSurvivor.Source.World;
 
 namespace TheSurvivor
 {
-
     public partial class Game : Form
     {
         Random rand = new Random();
         Player player;
         Input input = new Input();
         
+        Dictionary<PlatformType, List<Platform>> m_Platforms = new Dictionary<PlatformType, List<Platform>>();
+
+        int staticPlatformCount = 20;
+        int movingPlatformCount = 20;
+
         public Game()
         {
             InitializeComponent();
-            
+
             // Initialise sub components
             player = new Player(playerControl);
 
-            // Platform generation
-            int platformCount = 150;
-            for (int i = 0; i < platformCount; ++i)
+            // Initialise differnet platforms
+
+
+            List<Platform> staticPlatforms = new List<Platform>(staticPlatformCount);
+            for (int i = 0; i < staticPlatformCount; ++i)
             {
-                if (i < platformCount - 1)
-                {
-                    PictureBox platform = new PictureBox();
-                    platform.ClientSize = new Size(rand.Next(50, 100), 20);
-                    platform.Padding = new Padding(500);
-                    platform.Location = new Point(rand.Next(100, ClientSize.Width - 100), rand.Next(ClientSize.Height - 100, 10000));
-                    platform.BackColor = Color.FromArgb(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
-                    platform.Tag = "platform";
-                    platform.BringToFront();
+                // Initialise moving platform
+                StaticPlatform sp = new StaticPlatform();
+                sp.platformSize = new PlatformSize(50, 20);
+                sp.platformColor = new PlatformColor(60, 120, 120);
+                sp.platformPosition = new PlatformPosition(rand.Next(100, ClientSize.Width - 100),
+                                                           rand.Next(ClientSize.Height - 100, 2000));
 
-                    Controls.Add(platform);
-                }
+                // Push all initialised values to picturebox control
+                sp.Set();
 
-                // TODO: Add a final platform
-                //else
-                //{
-                //    PictureBox platform = new PictureBox();
-                //    platform.ClientSize = new Size(ClientSize.Width, 20);
-                //    platform.Padding = new Padding(500);
-                //    platform.Location = new Point(0, ClientSize.Height);
-                //    platform.BackColor = Color.FromArgb(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
-                //    platform.Tag = "platform";
-                //    platform.BringToFront();
+                // Add this picturebox control to the from control list 
+                // for it to be rendered
+                Controls.Add(sp.Get());
 
-                //    Controls.Add(platform);
-                //}
+                // Add to moving platform list
+                staticPlatforms.Add(sp);
             }
+
+            List<Platform> movingPlatforms = new List<Platform>(movingPlatformCount);
+            for (int i = 0; i < movingPlatformCount; ++i)
+            {
+                // Initialise moving platform
+                MovingPlatform mp = new MovingPlatform();
+                mp.platformSize     = new PlatformSize(50, 20);
+                mp.platformColor    = new PlatformColor(120, 60, 120);
+                mp.platformPosition = new PlatformPosition(rand.Next(100, ClientSize.Width - 100),
+                                                           rand.Next(ClientSize.Height - 100, 2000));
+                mp.movementDirection = (MovementDirection)rand.Next(0, 2);
+                
+                // Push all initialised values to picturebox control
+                mp.Set();
+
+                // Add this picturebox control to the from control list 
+                // for it to be rendered
+                Controls.Add(mp.Get());
+
+                // Add to moving platform list
+                movingPlatforms.Add(mp);
+            }
+
+
+            // Add moving platform to platform list
+            m_Platforms.Add(PlatformType.STATIC_PLATFORM, staticPlatforms);
+            m_Platforms.Add(PlatformType.MOVING_PLATFORM, movingPlatforms);
+
+
+
+
+            // Platform generation
+            //int platformCount = 150;
+            //for (int i = 0; i < platformCount; ++i)
+            //{
+            //    if (i < platformCount - 1)
+            //    {
+            //        PictureBox platform = new PictureBox();
+            //        platform.ClientSize = new Size(rand.Next(50, 100), 20);
+            //        platform.Padding = new Padding(500);
+            //        platform.Location = new Point(rand.Next(100, ClientSize.Width - 100), rand.Next(ClientSize.Height - 100, 10000));
+            //        platform.BackColor = Color.FromArgb(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
+            //        platform.Tag = "platform";
+            //        platform.BringToFront();
+
+            //        Controls.Add(platform);
+            //    }
+            //}
         }
 
         private void timer_Tick(object sender, EventArgs e)
         {
+            // For each platform type, update them
+            foreach (KeyValuePair<PlatformType, List<Platform>> platform in m_Platforms)
+            {
+                platform.Value.ForEach(platformType =>
+                {
+                    platformType.Update();
+                });
+            }
+
             // Player movement
             if (input.IsKeyPressed(Keys.A) || input.IsKeyPressed(Keys.D))
             {
                 xAxisMovementTimer.Start();
-            } else if (input.IsKeyPressed(Keys.Space))
+            }
+            else if (input.IsKeyPressed(Keys.Space))
             {
                 yAxisMovementTimer.Start();
             }
@@ -192,7 +247,7 @@ namespace TheSurvivor
             Forms.Options options = new Forms.Options();
 
             options.Show();
-            
+
         }
 
         private void btnExit_Click(object sender, EventArgs e)

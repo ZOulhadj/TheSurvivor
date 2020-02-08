@@ -11,7 +11,7 @@ namespace TheSurvivor.Source
     class Player
     {
         private Panel m_Player;
-        private int m_PlayerSpeed = 10;
+        private int m_PlayerSpeed = 5;
         public bool m_Collision = false;
         private bool m_IsJumping = false;
 
