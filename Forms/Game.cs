@@ -43,11 +43,17 @@ namespace TheSurvivor
         bool victory = false;
         
         // Used to play soundtracks
-        MediaPlayer mediaPlayer = new MediaPlayer();
+        MediaPlayer backgroundMusic = new MediaPlayer();
+        MediaPlayer victoryMusic = new MediaPlayer();
 
         public Game()
         {
             InitializeComponent();
+
+            // Start playing background music
+            backgroundMusic.Open(new Uri("E:\\Programming\\TheSurvivor\\Assets\\Sounds\\Soundtrack.wav"));
+            backgroundMusic.Volume = 0.05;
+            backgroundMusic.Play();
 
             // Initialise sub components
             {
@@ -110,6 +116,11 @@ namespace TheSurvivor
             }
         }
 
+        ~Game()
+        {
+            backgroundMusic.Stop();
+        }
+
         private void timer_Tick(object sender, EventArgs e)
         {
             // Pause the game initially
@@ -152,9 +163,9 @@ namespace TheSurvivor
             // Victory
             if (GameInformation.currentScore >= victoryScore && !victory)
             {
-                mediaPlayer.Open(new Uri("E:\\Programming\\TheSurvivor\\Assets\\Sounds\\Victory.wav"));
-                mediaPlayer.Volume = 0.2;
-                mediaPlayer.Play();
+                victoryMusic.Open(new Uri("E:\\Programming\\TheSurvivor\\Assets\\Sounds\\Victory.wav"));
+                victoryMusic.Volume = 0.2;
+                victoryMusic.Play();
 
                 victory = true;
             }
