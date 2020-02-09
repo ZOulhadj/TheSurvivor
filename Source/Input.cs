@@ -19,9 +19,7 @@ namespace TheSurvivor.Source
         {
             { Keys.A,       KeyEvent.KEY_RELEASED },
             { Keys.D,       KeyEvent.KEY_RELEASED },
-            { Keys.Space,   KeyEvent.KEY_RELEASED }
         };
-
 
         public void SetKeyPressed(Keys key)
         {

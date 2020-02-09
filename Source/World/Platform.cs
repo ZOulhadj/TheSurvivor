@@ -12,7 +12,6 @@ namespace TheSurvivor.Source.World
     {
         STATIC_PLATFORM,
         MOVING_PLATFORM,
-        ROTATING_PLATFORM
     }
 
     struct PlatformSize
@@ -52,6 +51,8 @@ namespace TheSurvivor.Source.World
         public PlatformSize     platformSize;
         public PlatformColor    platformColor;
         public PlatformPosition platformPosition;
+        
+        public bool m_Collision = false;
 
         public void Set()
         {
@@ -66,6 +67,18 @@ namespace TheSurvivor.Source.World
             return m_Platform;
         }
 
-        public abstract void Update();
+
+        public void Update(ref Player player)
+        {
+            // Update collision and transformations
+            if (m_Platform.Bounds.IntersectsWith(player.GetPlayer().Bounds))
+                m_Collision = true;
+            else
+                m_Collision = false;
+            
+            UpdateInternal();
+        }
+
+        public abstract void UpdateInternal();
     }
 }

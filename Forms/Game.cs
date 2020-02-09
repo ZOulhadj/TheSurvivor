@@ -1,219 +1,188 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
+using System.Windows.Media;
+
 using TheSurvivor.Source;
 using TheSurvivor.Source.World;
 
 namespace TheSurvivor
 {
+    /* This is the main game form which consits of initialisation of sub components,
+     * the main game loop etc.
+     */
     public partial class Game : Form
     {
-        Random rand = new Random();
+        // Random seed generator used for generating randomness and is used for
+        // the platform locations.
+        Random random = new Random();
+
+        // An instance of the player
         Player player;
+        
         Input input = new Input();
         
+        // Stores a list of different platform types that each have their own list
+        // of platform information.
         Dictionary<PlatformType, List<Platform>> m_Platforms = new Dictionary<PlatformType, List<Platform>>();
 
-        int staticPlatformCount = 20;
-        int movingPlatformCount = 20;
+        // Basic game settings
+        int staticPlatformCount = 50;
+        int movingPlatformCount = 50;
+
+        // The distance of the level in pixels
+        int levelDistance = 20000;
+
+        // The score required to win the game
+        int victoryScore = 2000;
+
+        bool first = true;
+        bool isDead = false;
+        bool victory = false;
+        
+        // Used to play soundtracks
+        MediaPlayer mediaPlayer = new MediaPlayer();
 
         public Game()
         {
             InitializeComponent();
 
             // Initialise sub components
-            player = new Player(playerControl);
-
-            // Initialise differnet platforms
-
-
-            List<Platform> staticPlatforms = new List<Platform>(staticPlatformCount);
-            for (int i = 0; i < staticPlatformCount; ++i)
             {
-                // Initialise moving platform
-                StaticPlatform sp = new StaticPlatform();
-                sp.platformSize = new PlatformSize(50, 20);
-                sp.platformColor = new PlatformColor(60, 120, 120);
-                sp.platformPosition = new PlatformPosition(rand.Next(100, ClientSize.Width - 100),
-                                                           rand.Next(ClientSize.Height - 100, 2000));
-
-                // Push all initialised values to picturebox control
-                sp.Set();
-
-                // Add this picturebox control to the from control list 
-                // for it to be rendered
-                Controls.Add(sp.Get());
-
-                // Add to moving platform list
-                staticPlatforms.Add(sp);
-            }
-
-            List<Platform> movingPlatforms = new List<Platform>(movingPlatformCount);
-            for (int i = 0; i < movingPlatformCount; ++i)
-            {
-                // Initialise moving platform
-                MovingPlatform mp = new MovingPlatform();
-                mp.platformSize     = new PlatformSize(50, 20);
-                mp.platformColor    = new PlatformColor(120, 60, 120);
-                mp.platformPosition = new PlatformPosition(rand.Next(100, ClientSize.Width - 100),
-                                                           rand.Next(ClientSize.Height - 100, 2000));
-                mp.movementDirection = (MovementDirection)rand.Next(0, 2);
+                // Initialise differnet platforms
                 
-                // Push all initialised values to picturebox control
-                mp.Set();
+                List<Platform> staticPlatforms = new List<Platform>(staticPlatformCount);
+                for (int i = 0; i < staticPlatformCount; ++i)
+                {
+                    // Initialise moving platform
+                    StaticPlatform sp = new StaticPlatform();
+                    sp.platformSize = new PlatformSize(50, 20);
+                    sp.platformColor = new PlatformColor(0, 255, 0);
+                    sp.platformPosition = new PlatformPosition(random.Next(100, ClientSize.Width - 100),
+                                                               random.Next(ClientSize.Height - 100, levelDistance));
 
-                // Add this picturebox control to the from control list 
-                // for it to be rendered
-                Controls.Add(mp.Get());
+                    // Push all initialised values to picturebox control
+                    sp.Set();
 
-                // Add to moving platform list
-                movingPlatforms.Add(mp);
+                    // Add this picturebox control to the from control list 
+                    // for it to be rendered
+                    Controls.Add(sp.Get());
+
+                    // Add to moving platform list
+                    staticPlatforms.Add(sp);
+                }
+
+                List<Platform> movingPlatforms = new List<Platform>(movingPlatformCount);
+                for (int i = 0; i < movingPlatformCount; ++i)
+                {
+                    // Initialise moving platform
+                    MovingPlatform mp = new MovingPlatform();
+                    mp.platformSize = new PlatformSize(50, 20);
+                    mp.platformColor = new PlatformColor(255, 60, 120);
+                    mp.platformPosition = new PlatformPosition(random.Next(100, ClientSize.Width - 100),
+                                                               random.Next(ClientSize.Height - 100, levelDistance));
+                    mp.movementDirection = (MovementDirection)random.Next(0, 2);
+
+                    // Push all initialised values to picturebox control
+                    mp.Set();
+
+                    // Add this picturebox control to the from control list 
+                    // for it to be rendered
+                    Controls.Add(mp.Get());
+
+                    // Add to moving platform list
+                    movingPlatforms.Add(mp);
+                }
+
+
+                // Add moving platform to platform list
+                m_Platforms.Add(PlatformType.STATIC_PLATFORM, staticPlatforms);
+                m_Platforms.Add(PlatformType.MOVING_PLATFORM, movingPlatforms);
+
+
+                // Initialise player
+                player = new Player(playerControl);
+
+                // Send the background backwards so that the platforms are visible
+                background.SendToBack();
             }
-
-
-            // Add moving platform to platform list
-            m_Platforms.Add(PlatformType.STATIC_PLATFORM, staticPlatforms);
-            m_Platforms.Add(PlatformType.MOVING_PLATFORM, movingPlatforms);
-
-
-
-
-            // Platform generation
-            //int platformCount = 150;
-            //for (int i = 0; i < platformCount; ++i)
-            //{
-            //    if (i < platformCount - 1)
-            //    {
-            //        PictureBox platform = new PictureBox();
-            //        platform.ClientSize = new Size(rand.Next(50, 100), 20);
-            //        platform.Padding = new Padding(500);
-            //        platform.Location = new Point(rand.Next(100, ClientSize.Width - 100), rand.Next(ClientSize.Height - 100, 10000));
-            //        platform.BackColor = Color.FromArgb(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
-            //        platform.Tag = "platform";
-            //        platform.BringToFront();
-
-            //        Controls.Add(platform);
-            //    }
-            //}
         }
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            // For each platform type, update them
-            foreach (KeyValuePair<PlatformType, List<Platform>> platform in m_Platforms)
+            // Pause the game initially
+            if (first)
             {
-                platform.Value.ForEach(platformType =>
+                Thread.Sleep(200);
+                first = false;
+            }
+
+            // For each platform type, update them
+            foreach (KeyValuePair<PlatformType, List<Platform>> platformType in m_Platforms)
+            {
+                platformType.Value.ForEach(platform =>
                 {
-                    platformType.Update();
+                    // For each platform check if a collision has occured
+                    if (!platform.m_Collision)
+                        platform.Get().Top -= player.GetSpeed();
+                    else
+                        isDead = true;
+
+                    // Update each platform type
+                    platform.Update(ref player);
                 });
             }
 
             // Player movement
             if (input.IsKeyPressed(Keys.A) || input.IsKeyPressed(Keys.D))
-            {
                 xAxisMovementTimer.Start();
-            }
-            else if (input.IsKeyPressed(Keys.Space))
+
+
+            // Increment score by a certain value each time
+            GameInformation.currentScore++;
+            if (GameInformation.currentScore >= GameInformation.previousScore + 50)
             {
-                yAxisMovementTimer.Start();
+                GameInformation.previousScore = GameInformation.currentScore;
+                scoreLabel.Text = "Score: " + GameInformation.currentScore.ToString();
             }
 
-            foreach (Control control in Controls)
+
+            // Victory
+            if (GameInformation.currentScore >= victoryScore && !victory)
             {
-                // If control location is outside the window then discard it from rendering
+                mediaPlayer.Open(new Uri("E:\\Programming\\TheSurvivor\\Assets\\Sounds\\Victory.wav"));
+                mediaPlayer.Volume = 0.2;
+                mediaPlayer.Play();
 
-                // Check if the player is colliding with an object while not jumping
-                if ((string)control.Tag == "platform" && !player.IsJumping())
-                {
-                    if (control.Left < player.GetPlayer().Left + player.GetPlayer().Width &&
-                        control.Left + control.Width > player.GetPlayer().Left &&
-                        control.Top < player.GetPlayer().Top + player.GetPlayer().Height &&
-                        control.Top + control.Height > player.GetPlayer().Top)
-                    {
-                        player.m_Collision = true;
-                        //control.BackColor = Color.Green;
-                    }
-                    else
-                    {
-                        //control.BackColor = Color.White;
-                    }
-                }
+                victory = true;
             }
 
-            // Second pass to move or keep the platforms stationary
-            foreach (Control control in Controls)
+            // If the player dies then show the death screen
+            if (isDead)
             {
-                if ((string)control.Tag == "platform" && !player.IsJumping())
-                {
-                    if (player.m_Collision)
-                    {
-                        /* Find out which way the world needs to be transformed
-                         * based on which side the player is colliding with
-                         * the object.
-                         */
-                    }
-                    else
-                    {
-                        control.Top -= player.GetSpeed();
-                    }
-                }
-
+                Close();
+                Forms.DeathScreen ds = new Forms.DeathScreen();
+                ds.Show();
             }
-            // Reset collision flag
-            player.m_Collision = false;
-
-            // Increase lava height over time
-            //lavaControl.Top -= 1;
-            //lavaControl.Height += 1;
 
         }
 
         private void xAxisMovementTimer_Tick(object sender, EventArgs e)
         {
+            // Ensure player is within the window
+            if (player.GetPlayer().Location.X >= ClientSize.Width - player.GetPlayer().Width)
+                player.GetPlayer().Location = new Point(ClientSize.Width - player.GetPlayer().Width, player.GetPlayer().Location.Y);
+            else if (player.GetPlayer().Location.X <= 0)
+                player.GetPlayer().Location = new Point(0, player.GetPlayer().Location.Y);
+
+            // Move player on the X axis
             if (input.IsKeyPressed(Keys.A))
-            {
-                //foreach (Control control in Controls)
-                //{
-                //    if ((string)control.Tag == "platform")
-                //    {
-                //        control.Left += player.GetSpeed();
-                //    }
-                //}
                 player.GetPlayer().Left -= player.GetSpeed();
-            }
 
             if (input.IsKeyPressed(Keys.D))
-            {
-                //foreach (Control control in Controls)
-                //{
-                //    if ((string)control.Tag == "platform")
-                //    {
-                //        control.Left -= player.GetSpeed();
-                //    }
-                //}
                 player.GetPlayer().Left += player.GetSpeed();
-            }
-        }
-
-        private void yAxisMovementTimer_Tick(object sender, EventArgs e)
-        {
-            if (input.IsKeyPressed(Keys.Space))
-            {
-                // Move all platforms down during jump
-                foreach (Control control in Controls)
-                {
-                    if ((string)control.Tag == "platform")
-                    {
-                        control.Top += player.GetSpeed();
-                    }
-                }
-                player.SetJumping(true);
-            }
-            else
-            {
-                player.SetJumping(false);
-            }
         }
 
         private void Game_KeyDown(object sender, KeyEventArgs e)
@@ -226,13 +195,7 @@ namespace TheSurvivor
             input.SetKeyReleased(e.KeyCode);
 
             if (!input.IsKeyPressed(Keys.A) || !input.IsKeyPressed(Keys.D))
-            {
                 xAxisMovementTimer.Stop();
-            }
-            else if (!input.IsKeyPressed(Keys.Space))
-            {
-                yAxisMovementTimer.Stop();
-            }
         }
 
         private void btnContinue_Click(object sender, EventArgs e)
@@ -254,5 +217,13 @@ namespace TheSurvivor
         {
             Application.Exit();
         }
+    }
+
+    /* The player score information is stored in a static class because it has
+     * to be accessed from within the death screen.
+     */
+    public static class GameInformation
+    {
+        public static int previousScore = 0, currentScore = 0;
     }
 }

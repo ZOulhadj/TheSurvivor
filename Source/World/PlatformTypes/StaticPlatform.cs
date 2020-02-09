@@ -9,7 +9,7 @@ namespace TheSurvivor.Source.World
     class StaticPlatform : Platform
     {
 
-        public override void Update()
+        public override void UpdateInternal()
         {
 
         }

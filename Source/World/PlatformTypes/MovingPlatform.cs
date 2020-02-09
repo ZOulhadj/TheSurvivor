@@ -16,11 +16,17 @@ namespace TheSurvivor.Source.World
     class MovingPlatform : Platform
     {
         private int m_MovementSpeed = 1;
-
         public MovementDirection movementDirection;
 
-        public override void Update()
+        public override void UpdateInternal()
         {
+            // Move platform in the opposite direction if it hits the edge of the screen
+            if (m_Platform.Location.X >= 930 - m_Platform.Width)
+                movementDirection = MovementDirection.LEFT;
+            else if (m_Platform.Location.X <= 0)
+                movementDirection = MovementDirection.RIGHT;
+
+            // Move the platform in a specific direction
             switch (movementDirection)
             {
             case MovementDirection.RIGHT:
