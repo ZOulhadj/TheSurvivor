@@ -69,10 +69,12 @@
             // lblMainMenuTitle
             // 
             this.lblMainMenuTitle.AutoSize = true;
-            this.lblMainMenuTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMainMenuTitle.Location = new System.Drawing.Point(267, 77);
+            this.lblMainMenuTitle.BackColor = System.Drawing.Color.Transparent;
+            this.lblMainMenuTitle.Font = new System.Drawing.Font("Century Gothic", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMainMenuTitle.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblMainMenuTitle.Location = new System.Drawing.Point(264, 75);
             this.lblMainMenuTitle.Name = "lblMainMenuTitle";
-            this.lblMainMenuTitle.Size = new System.Drawing.Size(296, 55);
+            this.lblMainMenuTitle.Size = new System.Drawing.Size(299, 58);
             this.lblMainMenuTitle.TabIndex = 3;
             this.lblMainMenuTitle.Text = "The Survivor";
             // 
@@ -80,11 +82,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::TheSurvivor.Properties.Resources.MainMenuBackground;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.lblMainMenuTitle);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnOptions);
             this.Controls.Add(this.btnPlay);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainMenu";

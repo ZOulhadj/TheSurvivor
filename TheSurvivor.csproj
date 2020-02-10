@@ -148,22 +148,28 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Platform.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Assets\Heart.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\player.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\coin.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\Background.gif" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Assets\DeathTroll.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\BackgroundTiles\Background.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Spaceships\Bomber.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\BackgroundTiles\MainMenuBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Spaceships\Explorer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Spaceships\Fighter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Spaceships\Ranger.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

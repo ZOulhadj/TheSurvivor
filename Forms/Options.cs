@@ -17,6 +17,22 @@ namespace TheSurvivor.Forms
             InitializeComponent();
         }
 
+
+        private void toggleMusicButton_Click(object sender, EventArgs e)
+        {
+            if (toggleMusicLabel.Text == "On")
+            {
+                toggleMusicLabel.Text = "Off";
+                toggleMusicLabel.ForeColor = Color.Red;
+            }
+            else if (toggleMusicLabel.Text == "Off")
+            {
+                toggleMusicLabel.Text = "On";
+                toggleMusicLabel.ForeColor = Color.Green;
+            }
+        }
+
+
         private void btnBack_Click(object sender, EventArgs e)
         {
             MainMenu mainMenuForm = new MainMenu();
