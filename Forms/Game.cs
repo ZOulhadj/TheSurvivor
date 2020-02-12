@@ -176,7 +176,7 @@ namespace TheSurvivor
 
 
             // Fuel
-            playerFuel.Value--;
+            //playerFuel.Value--;
 
 
             // Victory
