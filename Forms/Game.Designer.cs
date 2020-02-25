@@ -126,7 +126,7 @@
             this.playerControl.BackgroundImage = global::TheSurvivor.Properties.Resources.Bomber;
             this.playerControl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.playerControl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.playerControl.Location = new System.Drawing.Point(439, 378);
+            this.playerControl.Location = new System.Drawing.Point(439, 343);
             this.playerControl.Margin = new System.Windows.Forms.Padding(0);
             this.playerControl.Name = "playerControl";
             this.playerControl.Size = new System.Drawing.Size(53, 54);

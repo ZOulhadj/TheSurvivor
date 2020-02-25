@@ -12,26 +12,34 @@ namespace TheSurvivor.Forms
 {
     public partial class MainMenu : Form
     {
+        Options optionsForm = new Options();
+
         public MainMenu()
         {
             InitializeComponent();
+
+            // Disables form movement
+            FormBorderStyle = FormBorderStyle.None;
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
             Game gameForm = new Game();
-
-
             gameForm.Show();
-            Hide();
         }
 
         private void btnOptions_Click(object sender, EventArgs e)
         {
-            Options optionsForm = new Options();
-            optionsForm.Show();
 
-            Hide();
+            if (optionsForm is null)
+            {
+                optionsForm = new Options();
+                optionsForm.Show();
+            }
+            else
+            {
+                optionsForm.Show();
+            }
         }
 
         private void btnExit_Click(object sender, EventArgs e)

@@ -40,18 +40,18 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.gameplayTab = new System.Windows.Forms.TabPage();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.difficultyLabel = new System.Windows.Forms.Label();
             this.musicTab = new System.Windows.Forms.TabPage();
             this.musicLabel = new System.Windows.Forms.Label();
             this.optionsLabel = new System.Windows.Forms.Label();
+            this.bomberOption = new System.Windows.Forms.RadioButton();
+            this.explorerOption = new System.Windows.Forms.RadioButton();
+            this.fighterOption = new System.Windows.Forms.RadioButton();
+            this.rangerOption = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.difficultySlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -162,14 +162,14 @@
             // gameplayTab
             // 
             this.gameplayTab.BackColor = System.Drawing.SystemColors.Control;
+            this.gameplayTab.Controls.Add(this.rangerOption);
+            this.gameplayTab.Controls.Add(this.fighterOption);
+            this.gameplayTab.Controls.Add(this.explorerOption);
+            this.gameplayTab.Controls.Add(this.bomberOption);
             this.gameplayTab.Controls.Add(this.pictureBox4);
-            this.gameplayTab.Controls.Add(this.checkBox4);
             this.gameplayTab.Controls.Add(this.pictureBox3);
-            this.gameplayTab.Controls.Add(this.checkBox3);
             this.gameplayTab.Controls.Add(this.pictureBox2);
-            this.gameplayTab.Controls.Add(this.checkBox2);
             this.gameplayTab.Controls.Add(this.pictureBox1);
-            this.gameplayTab.Controls.Add(this.checkBox1);
             this.gameplayTab.Controls.Add(this.label1);
             this.gameplayTab.Controls.Add(this.difficultyLabel);
             this.gameplayTab.Controls.Add(this.easyLabel);
@@ -194,16 +194,6 @@
             this.pictureBox4.TabIndex = 17;
             this.pictureBox4.TabStop = false;
             // 
-            // checkBox4
-            // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(641, 176);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(60, 17);
-            this.checkBox4.TabIndex = 16;
-            this.checkBox4.Text = "Default";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            // 
             // pictureBox3
             // 
             this.pictureBox3.Image = global::TheSurvivor.Properties.Resources.Fighter;
@@ -213,16 +203,6 @@
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 15;
             this.pictureBox3.TabStop = false;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(641, 123);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(58, 17);
-            this.checkBox3.TabIndex = 14;
-            this.checkBox3.Text = "Fighter";
-            this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // pictureBox2
             // 
@@ -234,16 +214,6 @@
             this.pictureBox2.TabIndex = 13;
             this.pictureBox2.TabStop = false;
             // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(641, 70);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(61, 17);
-            this.checkBox2.TabIndex = 12;
-            this.checkBox2.Text = "Ranger";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::TheSurvivor.Properties.Resources.Bomber;
@@ -253,18 +223,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 11;
             this.pictureBox1.TabStop = false;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(641, 17);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(62, 17);
-            this.checkBox1.TabIndex = 10;
-            this.checkBox1.Text = "Bomber";
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -320,6 +278,47 @@
             this.optionsLabel.TabIndex = 13;
             this.optionsLabel.Text = "Options";
             // 
+            // bomberOption
+            // 
+            this.bomberOption.AutoSize = true;
+            this.bomberOption.Checked = true;
+            this.bomberOption.Location = new System.Drawing.Point(641, 17);
+            this.bomberOption.Name = "bomberOption";
+            this.bomberOption.Size = new System.Drawing.Size(61, 17);
+            this.bomberOption.TabIndex = 18;
+            this.bomberOption.Text = "Bomber";
+            this.bomberOption.UseVisualStyleBackColor = true;
+            // 
+            // explorerOption
+            // 
+            this.explorerOption.AutoSize = true;
+            this.explorerOption.Location = new System.Drawing.Point(640, 70);
+            this.explorerOption.Name = "explorerOption";
+            this.explorerOption.Size = new System.Drawing.Size(63, 17);
+            this.explorerOption.TabIndex = 19;
+            this.explorerOption.Text = "Explorer";
+            this.explorerOption.UseVisualStyleBackColor = true;
+            // 
+            // fighterOption
+            // 
+            this.fighterOption.AutoSize = true;
+            this.fighterOption.Location = new System.Drawing.Point(640, 123);
+            this.fighterOption.Name = "fighterOption";
+            this.fighterOption.Size = new System.Drawing.Size(57, 17);
+            this.fighterOption.TabIndex = 20;
+            this.fighterOption.Text = "Fighter";
+            this.fighterOption.UseVisualStyleBackColor = true;
+            // 
+            // rangerOption
+            // 
+            this.rangerOption.AutoSize = true;
+            this.rangerOption.Location = new System.Drawing.Point(640, 176);
+            this.rangerOption.Name = "rangerOption";
+            this.rangerOption.Size = new System.Drawing.Size(60, 17);
+            this.rangerOption.TabIndex = 21;
+            this.rangerOption.Text = "Ranger";
+            this.rangerOption.UseVisualStyleBackColor = true;
+            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -368,12 +367,12 @@
         private System.Windows.Forms.Label optionsLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.CheckBox checkBox4;
         private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.RadioButton bomberOption;
+        private System.Windows.Forms.RadioButton rangerOption;
+        private System.Windows.Forms.RadioButton fighterOption;
+        private System.Windows.Forms.RadioButton explorerOption;
     }
 }

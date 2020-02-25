@@ -11,7 +11,8 @@ namespace TheSurvivor.Source.World
 
         public override void UpdateInternal()
         {
-
+            // Note: As the platform name suggests, they are static and
+            // nothing needs to be updated per frame.
         }
     }
 }

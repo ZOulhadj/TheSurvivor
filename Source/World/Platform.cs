@@ -67,7 +67,6 @@ namespace TheSurvivor.Source.World
             return m_Platform;
         }
 
-
         public void Update(ref Player player)
         {
             // Update collision and transformations

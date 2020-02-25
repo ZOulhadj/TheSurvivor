@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Media;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,32 +11,37 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Media;
 
+using TheSurvivor.Source.Utilities;
+using TheSurvivor.Source.Music;
+
 
 
 namespace TheSurvivor.Forms
 {
     public partial class DeathScreen : Form
     {
-        MediaPlayer mediaPlayer = new MediaPlayer();
+        Sound deathSound = new Sound(FileSystem.GetAsset("Sounds/Death.wav"));
 
         public DeathScreen()
         {
             InitializeComponent();
+
+            // Disables form movement
+            FormBorderStyle = FormBorderStyle.None;
+
+            deathSound.Play();
         }
 
         private void DeathScreen_Load(object sender, EventArgs e)
         {
             finalScoreLabel.Text += GameInformation.currentScore;
 
-            mediaPlayer.Open(new Uri("E:\\Programming\\TheSurvivor\\Assets\\Sounds\\Death.wav"));
-            mediaPlayer.Volume = 0.5;
-            mediaPlayer.Play();
 
         }
 
         private void tryAgainBtn_Click(object sender, EventArgs e)
         {
-            mediaPlayer.Stop();
+            deathSound.Stop();
 
             Close();
             Game game = new Game();
@@ -53,11 +59,7 @@ namespace TheSurvivor.Forms
 
         private void homeButton_Click(object sender, EventArgs e)
         {
-            MainMenu mainMenu = new MainMenu();
-
             Close();
-
-            mainMenu.Show();
         }
     }
 }

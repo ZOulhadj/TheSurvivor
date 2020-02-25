@@ -12,9 +12,14 @@ namespace TheSurvivor.Forms
 {
     public partial class Options : Form
     {
+        private static Bitmap m_PlayerImage = Properties.Resources.Bomber;
+
         public Options()
         {
             InitializeComponent();
+
+            // Disables form movement
+            FormBorderStyle = FormBorderStyle.None;
         }
 
 
@@ -35,10 +40,25 @@ namespace TheSurvivor.Forms
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            MainMenu mainMenuForm = new MainMenu();
-            
-            mainMenuForm.Show();
+
+            // Select player image
+            if (bomberOption.Checked)
+                m_PlayerImage = Properties.Resources.Bomber;
+            else if (explorerOption.Checked)
+                m_PlayerImage = Properties.Resources.Explorer;
+            else if (fighterOption.Checked)
+                m_PlayerImage = Properties.Resources.Fighter;
+            else if (rangerOption.Checked)
+                m_PlayerImage = Properties.Resources.Ranger;
+
+
+
             Hide();
+        }
+
+        static public Bitmap GetPlayerImage()
+        {
+            return m_PlayerImage;
         }
     }
 }
