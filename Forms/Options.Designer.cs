@@ -34,24 +34,24 @@
             this.mediumLabel = new System.Windows.Forms.Label();
             this.hardLabel = new System.Windows.Forms.Label();
             this.impossibleLabel = new System.Windows.Forms.Label();
-            this.toggleMusicButton = new System.Windows.Forms.Button();
+            this.toggleSoundButton = new System.Windows.Forms.Button();
             this.toggleMusicLabel = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.gameplayTab = new System.Windows.Forms.TabPage();
+            this.rangerOption = new System.Windows.Forms.RadioButton();
+            this.fighterOption = new System.Windows.Forms.RadioButton();
+            this.explorerOption = new System.Windows.Forms.RadioButton();
+            this.bomberOption = new System.Windows.Forms.RadioButton();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.difficultyLabel = new System.Windows.Forms.Label();
-            this.musicTab = new System.Windows.Forms.TabPage();
-            this.musicLabel = new System.Windows.Forms.Label();
+            this.soundTab = new System.Windows.Forms.TabPage();
+            this.soundLabel = new System.Windows.Forms.Label();
             this.optionsLabel = new System.Windows.Forms.Label();
-            this.bomberOption = new System.Windows.Forms.RadioButton();
-            this.explorerOption = new System.Windows.Forms.RadioButton();
-            this.fighterOption = new System.Windows.Forms.RadioButton();
-            this.rangerOption = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.difficultySlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -60,7 +60,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.musicTab.SuspendLayout();
+            this.soundTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnBack
@@ -119,16 +119,16 @@
             this.impossibleLabel.TabIndex = 7;
             this.impossibleLabel.Text = "Impossible";
             // 
-            // toggleMusicButton
+            // toggleSoundButton
             // 
-            this.toggleMusicButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toggleMusicButton.Location = new System.Drawing.Point(6, 14);
-            this.toggleMusicButton.Name = "toggleMusicButton";
-            this.toggleMusicButton.Size = new System.Drawing.Size(132, 27);
-            this.toggleMusicButton.TabIndex = 8;
-            this.toggleMusicButton.Text = "Toggle Music";
-            this.toggleMusicButton.UseVisualStyleBackColor = true;
-            this.toggleMusicButton.Click += new System.EventHandler(this.toggleMusicButton_Click);
+            this.toggleSoundButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toggleSoundButton.Location = new System.Drawing.Point(6, 14);
+            this.toggleSoundButton.Name = "toggleSoundButton";
+            this.toggleSoundButton.Size = new System.Drawing.Size(132, 27);
+            this.toggleSoundButton.TabIndex = 8;
+            this.toggleSoundButton.Text = "Toggle Sound";
+            this.toggleSoundButton.UseVisualStyleBackColor = true;
+            this.toggleSoundButton.Click += new System.EventHandler(this.toggleMusicButton_Click);
             // 
             // toggleMusicLabel
             // 
@@ -152,7 +152,7 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.gameplayTab);
-            this.tabControl1.Controls.Add(this.musicTab);
+            this.tabControl1.Controls.Add(this.soundTab);
             this.tabControl1.Location = new System.Drawing.Point(12, 66);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -183,6 +183,48 @@
             this.gameplayTab.Size = new System.Drawing.Size(768, 317);
             this.gameplayTab.TabIndex = 0;
             this.gameplayTab.Text = "Gameplay";
+            // 
+            // rangerOption
+            // 
+            this.rangerOption.AutoSize = true;
+            this.rangerOption.Location = new System.Drawing.Point(640, 176);
+            this.rangerOption.Name = "rangerOption";
+            this.rangerOption.Size = new System.Drawing.Size(60, 17);
+            this.rangerOption.TabIndex = 21;
+            this.rangerOption.Text = "Ranger";
+            this.rangerOption.UseVisualStyleBackColor = true;
+            // 
+            // fighterOption
+            // 
+            this.fighterOption.AutoSize = true;
+            this.fighterOption.Location = new System.Drawing.Point(640, 123);
+            this.fighterOption.Name = "fighterOption";
+            this.fighterOption.Size = new System.Drawing.Size(57, 17);
+            this.fighterOption.TabIndex = 20;
+            this.fighterOption.Text = "Fighter";
+            this.fighterOption.UseVisualStyleBackColor = true;
+            // 
+            // explorerOption
+            // 
+            this.explorerOption.AutoSize = true;
+            this.explorerOption.Location = new System.Drawing.Point(640, 70);
+            this.explorerOption.Name = "explorerOption";
+            this.explorerOption.Size = new System.Drawing.Size(63, 17);
+            this.explorerOption.TabIndex = 19;
+            this.explorerOption.Text = "Explorer";
+            this.explorerOption.UseVisualStyleBackColor = true;
+            // 
+            // bomberOption
+            // 
+            this.bomberOption.AutoSize = true;
+            this.bomberOption.Checked = true;
+            this.bomberOption.Location = new System.Drawing.Point(641, 17);
+            this.bomberOption.Name = "bomberOption";
+            this.bomberOption.Size = new System.Drawing.Size(61, 17);
+            this.bomberOption.TabIndex = 18;
+            this.bomberOption.TabStop = true;
+            this.bomberOption.Text = "Bomber";
+            this.bomberOption.UseVisualStyleBackColor = true;
             // 
             // pictureBox4
             // 
@@ -244,29 +286,29 @@
             this.difficultyLabel.TabIndex = 8;
             this.difficultyLabel.Text = "Difficulty";
             // 
-            // musicTab
+            // soundTab
             // 
-            this.musicTab.BackColor = System.Drawing.SystemColors.Control;
-            this.musicTab.Controls.Add(this.musicLabel);
-            this.musicTab.Controls.Add(this.trackBar1);
-            this.musicTab.Controls.Add(this.toggleMusicButton);
-            this.musicTab.Controls.Add(this.toggleMusicLabel);
-            this.musicTab.Location = new System.Drawing.Point(4, 22);
-            this.musicTab.Name = "musicTab";
-            this.musicTab.Padding = new System.Windows.Forms.Padding(3);
-            this.musicTab.Size = new System.Drawing.Size(768, 317);
-            this.musicTab.TabIndex = 1;
-            this.musicTab.Text = "Music";
+            this.soundTab.BackColor = System.Drawing.SystemColors.Control;
+            this.soundTab.Controls.Add(this.soundLabel);
+            this.soundTab.Controls.Add(this.trackBar1);
+            this.soundTab.Controls.Add(this.toggleSoundButton);
+            this.soundTab.Controls.Add(this.toggleMusicLabel);
+            this.soundTab.Location = new System.Drawing.Point(4, 22);
+            this.soundTab.Name = "soundTab";
+            this.soundTab.Padding = new System.Windows.Forms.Padding(3);
+            this.soundTab.Size = new System.Drawing.Size(768, 317);
+            this.soundTab.TabIndex = 1;
+            this.soundTab.Text = "Sound";
             // 
-            // musicLabel
+            // soundLabel
             // 
-            this.musicLabel.AutoSize = true;
-            this.musicLabel.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.musicLabel.Location = new System.Drawing.Point(6, 48);
-            this.musicLabel.Name = "musicLabel";
-            this.musicLabel.Size = new System.Drawing.Size(118, 19);
-            this.musicLabel.TabIndex = 12;
-            this.musicLabel.Text = "Music Volume";
+            this.soundLabel.AutoSize = true;
+            this.soundLabel.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.soundLabel.Location = new System.Drawing.Point(6, 48);
+            this.soundLabel.Name = "soundLabel";
+            this.soundLabel.Size = new System.Drawing.Size(123, 19);
+            this.soundLabel.TabIndex = 12;
+            this.soundLabel.Text = "Sound Volume";
             // 
             // optionsLabel
             // 
@@ -277,47 +319,6 @@
             this.optionsLabel.Size = new System.Drawing.Size(137, 39);
             this.optionsLabel.TabIndex = 13;
             this.optionsLabel.Text = "Options";
-            // 
-            // bomberOption
-            // 
-            this.bomberOption.AutoSize = true;
-            this.bomberOption.Checked = true;
-            this.bomberOption.Location = new System.Drawing.Point(641, 17);
-            this.bomberOption.Name = "bomberOption";
-            this.bomberOption.Size = new System.Drawing.Size(61, 17);
-            this.bomberOption.TabIndex = 18;
-            this.bomberOption.Text = "Bomber";
-            this.bomberOption.UseVisualStyleBackColor = true;
-            // 
-            // explorerOption
-            // 
-            this.explorerOption.AutoSize = true;
-            this.explorerOption.Location = new System.Drawing.Point(640, 70);
-            this.explorerOption.Name = "explorerOption";
-            this.explorerOption.Size = new System.Drawing.Size(63, 17);
-            this.explorerOption.TabIndex = 19;
-            this.explorerOption.Text = "Explorer";
-            this.explorerOption.UseVisualStyleBackColor = true;
-            // 
-            // fighterOption
-            // 
-            this.fighterOption.AutoSize = true;
-            this.fighterOption.Location = new System.Drawing.Point(640, 123);
-            this.fighterOption.Name = "fighterOption";
-            this.fighterOption.Size = new System.Drawing.Size(57, 17);
-            this.fighterOption.TabIndex = 20;
-            this.fighterOption.Text = "Fighter";
-            this.fighterOption.UseVisualStyleBackColor = true;
-            // 
-            // rangerOption
-            // 
-            this.rangerOption.AutoSize = true;
-            this.rangerOption.Location = new System.Drawing.Point(640, 176);
-            this.rangerOption.Name = "rangerOption";
-            this.rangerOption.Size = new System.Drawing.Size(60, 17);
-            this.rangerOption.TabIndex = 21;
-            this.rangerOption.Text = "Ranger";
-            this.rangerOption.UseVisualStyleBackColor = true;
             // 
             // Options
             // 
@@ -341,8 +342,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.musicTab.ResumeLayout(false);
-            this.musicTab.PerformLayout();
+            this.soundTab.ResumeLayout(false);
+            this.soundTab.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -356,13 +357,13 @@
         private System.Windows.Forms.Label mediumLabel;
         private System.Windows.Forms.Label hardLabel;
         private System.Windows.Forms.Label impossibleLabel;
-        private System.Windows.Forms.Button toggleMusicButton;
+        private System.Windows.Forms.Button toggleSoundButton;
         private System.Windows.Forms.Label toggleMusicLabel;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage gameplayTab;
-        private System.Windows.Forms.TabPage musicTab;
-        private System.Windows.Forms.Label musicLabel;
+        private System.Windows.Forms.TabPage soundTab;
+        private System.Windows.Forms.Label soundLabel;
         private System.Windows.Forms.Label difficultyLabel;
         private System.Windows.Forms.Label optionsLabel;
         private System.Windows.Forms.Label label1;

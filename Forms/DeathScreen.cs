@@ -20,16 +20,15 @@ namespace TheSurvivor.Forms
 {
     public partial class DeathScreen : Form
     {
-        Sound deathSound = new Sound(FileSystem.GetAsset("Sounds/Death.wav"));
+        Sound deathSound;
 
         public DeathScreen()
         {
             InitializeComponent();
 
-            // Disables form movement
-            FormBorderStyle = FormBorderStyle.None;
+            // Play death screen soundtrack
 
-            deathSound.Play();
+            deathSound = new Sound(FileSystem.GetAsset("Sounds/Death.wav"));
         }
 
         private void DeathScreen_Load(object sender, EventArgs e)
@@ -37,12 +36,11 @@ namespace TheSurvivor.Forms
             finalScoreLabel.Text += GameInformation.currentScore;
 
 
+            deathSound.Play();
         }
 
         private void tryAgainBtn_Click(object sender, EventArgs e)
         {
-            deathSound.Stop();
-
             Close();
             Game game = new Game();
 
@@ -52,14 +50,15 @@ namespace TheSurvivor.Forms
             game.Show();
         }
 
+        private void homeButton_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
         private void exitBtn_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void homeButton_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
     }
 }

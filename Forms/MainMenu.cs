@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using TheSurvivor.Source.Utilities;
+
 namespace TheSurvivor.Forms
 {
     public partial class MainMenu : Form
@@ -17,9 +19,6 @@ namespace TheSurvivor.Forms
         public MainMenu()
         {
             InitializeComponent();
-
-            // Disables form movement
-            FormBorderStyle = FormBorderStyle.None;
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
@@ -30,16 +29,8 @@ namespace TheSurvivor.Forms
 
         private void btnOptions_Click(object sender, EventArgs e)
         {
-
-            if (optionsForm is null)
-            {
-                optionsForm = new Options();
+                Logging.Log(LogType.LOG, "Displaying options form");
                 optionsForm.Show();
-            }
-            else
-            {
-                optionsForm.Show();
-            }
         }
 
         private void btnExit_Click(object sender, EventArgs e)

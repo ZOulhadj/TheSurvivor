@@ -63,18 +63,18 @@
             this.pausePanel.Controls.Add(this.btnContinue);
             this.pausePanel.Controls.Add(this.btnOptions);
             this.pausePanel.Controls.Add(this.btnExit);
-            this.pausePanel.Location = new System.Drawing.Point(727, 148);
+            this.pausePanel.Location = new System.Drawing.Point(224, 122);
             this.pausePanel.Name = "pausePanel";
-            this.pausePanel.Size = new System.Drawing.Size(162, 193);
+            this.pausePanel.Size = new System.Drawing.Size(476, 493);
             this.pausePanel.TabIndex = 5;
             this.pausePanel.Visible = false;
             // 
             // btnContinue
             // 
             this.btnContinue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnContinue.Location = new System.Drawing.Point(50, 26);
+            this.btnContinue.Location = new System.Drawing.Point(61, 72);
             this.btnContinue.Name = "btnContinue";
-            this.btnContinue.Size = new System.Drawing.Size(70, 44);
+            this.btnContinue.Size = new System.Drawing.Size(351, 44);
             this.btnContinue.TabIndex = 2;
             this.btnContinue.Text = "Continue";
             this.btnContinue.UseVisualStyleBackColor = true;
@@ -83,9 +83,9 @@
             // btnOptions
             // 
             this.btnOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOptions.Location = new System.Drawing.Point(50, 76);
+            this.btnOptions.Location = new System.Drawing.Point(61, 227);
             this.btnOptions.Name = "btnOptions";
-            this.btnOptions.Size = new System.Drawing.Size(70, 47);
+            this.btnOptions.Size = new System.Drawing.Size(351, 47);
             this.btnOptions.TabIndex = 1;
             this.btnOptions.Text = "Options";
             this.btnOptions.UseVisualStyleBackColor = true;
@@ -94,9 +94,9 @@
             // btnExit
             // 
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.Location = new System.Drawing.Point(50, 129);
+            this.btnExit.Location = new System.Drawing.Point(61, 404);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(70, 41);
+            this.btnExit.Size = new System.Drawing.Size(351, 41);
             this.btnExit.TabIndex = 0;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
@@ -219,6 +219,7 @@
             this.Name = "Game";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "The Survior";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Game_FormClosed);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Game_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Game_KeyUp);
             this.pausePanel.ResumeLayout(false);

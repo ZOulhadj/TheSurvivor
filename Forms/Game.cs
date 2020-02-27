@@ -21,11 +21,8 @@ namespace TheSurvivor
 
         // An instance of the player
         Player m_Player;
-        
         Input m_Input = new Input();
-
         LevelGeneration m_Level = new LevelGeneration();
-
         List<PictureBox> m_Hearts = new List<PictureBox>();
         
         int lives = 3;
@@ -37,20 +34,24 @@ namespace TheSurvivor
         bool victory = false;
 
         // Initialise music
-        Sound backgroundMusic = new Sound(FileSystem.GetAsset("Sounds/Soundtrack.wav"));
-        Sound victoryMusic = new Sound(FileSystem.GetAsset("Sounds/Victory.wav"));
+        Sound backgroundMusic;
+        Sound victoryMusic;
 
         public Game()
         {
             InitializeComponent();
 
-            // Disables form movement
-            FormBorderStyle = FormBorderStyle.None;
+            // Initialise sound tracks
+            Logging.Log(LogType.LOG, "Initialsing soundtracks");
+            backgroundMusic = new Sound(FileSystem.GetAsset("Sounds/Soundtrack.wav"));
+            victoryMusic = new Sound(FileSystem.GetAsset("Sounds/Victory.wav"));
             
             // Initialise differnet platforms
+            Logging.Log(LogType.LOG, "Initialsing level");
             m_Level.Generate(Controls);
 
             // Initialise player
+            Logging.Log(LogType.LOG, "Initialsing player");
             m_Player = new Player(playerControl);
             m_Player.GetPlayer().BackgroundImage = Options.GetPlayerImage();
             m_Player.GetPlayer().SendToBack();
@@ -59,18 +60,20 @@ namespace TheSurvivor
             background.SendToBack();
 
             // Initialise hearts
+            Logging.Log(LogType.LOG, "Populating heart array");
             m_Hearts.Add(heart1);
             m_Hearts.Add(heart2);
             m_Hearts.Add(heart3);
-            
-            
+
+
+
             // Start playing the soundtrack
             backgroundMusic.Play();
+
         }
 
         ~Game()
-        {
-            backgroundMusic.Stop();
+        {  
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -118,7 +121,6 @@ namespace TheSurvivor
             if (GameInformation.currentScore >= victoryScore && !victory)
             {
                 victoryMusic.Play();
-
                 victory = true;
             }
 
@@ -127,8 +129,10 @@ namespace TheSurvivor
             {
                 backgroundMusic.Stop();
                 Close();
-                Forms.DeathScreen ds = new Forms.DeathScreen();
+                DeathScreen ds = new Forms.DeathScreen();
                 ds.Show();
+
+                Logging.Log(LogType.WARNING, "Closing game and displaying death screen [Reason]: Player has died");
             }
 
         }
@@ -164,7 +168,7 @@ namespace TheSurvivor
 
         private void UpdateLives()
         {
-            // Play hit sound
+            // TODO: Play hit sound
 
 
             //lives 
@@ -182,10 +186,14 @@ namespace TheSurvivor
                 {
                     reset.Value.ForEach(p =>
                     {
-                        p.Get().Location = new Point(p.Get().Location.X, p.Get().Location.Y + 1000);
+                        p.Get().Location = new Point(p.Get().Location.X, p.Get().Location.Y + 1500);
                     });
                 };
-                Thread.Sleep(2000);
+
+                Logging.Log(LogType.WARNING, "Resetting position [Reason]: Player collision detected");
+                backgroundMusic.Pause();
+                Thread.Sleep(1500);
+                backgroundMusic.Play();
             }
             else
             {
@@ -207,7 +215,7 @@ namespace TheSurvivor
         
         private void btnOptions_Click(object sender, EventArgs e)
         {
-            Forms.Options options = new Forms.Options();
+            Options options = new Forms.Options();
 
             options.Show();
 
@@ -218,6 +226,10 @@ namespace TheSurvivor
             Application.Exit();
         }
 
+        private void Game_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            backgroundMusic.Stop();
+        }
     }
 
     /* The player score information is stored in a static class because it has

@@ -104,6 +104,7 @@
     <Compile Include="Source\Music\Sound.cs" />
     <Compile Include="Source\Player.cs" />
     <Compile Include="Source\Utilities\FileSystem.cs" />
+    <Compile Include="Source\Utilities\Logging.cs" />
     <Compile Include="Source\World\PlatformTypes\MovingPlatform.cs" />
     <Compile Include="Source\World\Platform.cs" />
     <Compile Include="Source\World\PlatformTypes\StaticPlatform.cs" />

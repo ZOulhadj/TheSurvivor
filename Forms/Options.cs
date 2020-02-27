@@ -13,13 +13,12 @@ namespace TheSurvivor.Forms
     public partial class Options : Form
     {
         private static Bitmap m_PlayerImage = Properties.Resources.Bomber;
+        private static bool m_Music = true;
+        private static int m_Difficulty = 1;
 
         public Options()
         {
             InitializeComponent();
-
-            // Disables form movement
-            FormBorderStyle = FormBorderStyle.None;
         }
 
 
@@ -29,11 +28,13 @@ namespace TheSurvivor.Forms
             {
                 toggleMusicLabel.Text = "Off";
                 toggleMusicLabel.ForeColor = Color.Red;
+                m_Music = false;
             }
             else if (toggleMusicLabel.Text == "Off")
             {
                 toggleMusicLabel.Text = "On";
                 toggleMusicLabel.ForeColor = Color.Green;
+                m_Music = true;
             }
         }
 
@@ -52,6 +53,10 @@ namespace TheSurvivor.Forms
                 m_PlayerImage = Properties.Resources.Ranger;
 
 
+            // Set difficulty
+            m_Difficulty = difficultySlider.Value;
+
+
 
             Hide();
         }
@@ -59,6 +64,19 @@ namespace TheSurvivor.Forms
         static public Bitmap GetPlayerImage()
         {
             return m_PlayerImage;
+        }
+
+        static public int GetDifficulty()
+        {
+            return m_Difficulty;
+        }
+
+        static public bool GetMusicSetting()
+        {
+            if (m_Music)
+                return true;
+            else
+                return false;
         }
     }
 }
