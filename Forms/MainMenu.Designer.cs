@@ -70,11 +70,11 @@
             // 
             this.lblMainMenuTitle.AutoSize = true;
             this.lblMainMenuTitle.BackColor = System.Drawing.Color.Transparent;
-            this.lblMainMenuTitle.Font = new System.Drawing.Font("Century Gothic", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMainMenuTitle.Font = new System.Drawing.Font("Stencil", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMainMenuTitle.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblMainMenuTitle.Location = new System.Drawing.Point(264, 75);
+            this.lblMainMenuTitle.Location = new System.Drawing.Point(231, 85);
             this.lblMainMenuTitle.Name = "lblMainMenuTitle";
-            this.lblMainMenuTitle.Size = new System.Drawing.Size(299, 58);
+            this.lblMainMenuTitle.Size = new System.Drawing.Size(364, 57);
             this.lblMainMenuTitle.TabIndex = 3;
             this.lblMainMenuTitle.Text = "The Survivor";
             // 

@@ -52,6 +52,14 @@
             this.soundTab = new System.Windows.Forms.TabPage();
             this.soundLabel = new System.Windows.Forms.Label();
             this.optionsLabel = new System.Windows.Forms.Label();
+            this.customLabel = new System.Windows.Forms.Label();
+            this.staticPlatformsTextbox = new System.Windows.Forms.TextBox();
+            this.movingPlatformsTextbox = new System.Windows.Forms.TextBox();
+            this.staticPlatformsLabel = new System.Windows.Forms.Label();
+            this.movingPlatformsLabel = new System.Windows.Forms.Label();
+            this.playerSpeedLabel = new System.Windows.Forms.Label();
+            this.playerSpeedTextbox = new System.Windows.Forms.TextBox();
+            this.performanceWarningLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.difficultySlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -75,13 +83,15 @@
             // 
             // difficultySlider
             // 
+            this.difficultySlider.LargeChange = 1;
             this.difficultySlider.Location = new System.Drawing.Point(98, 6);
-            this.difficultySlider.Maximum = 4;
+            this.difficultySlider.Maximum = 5;
             this.difficultySlider.Minimum = 1;
             this.difficultySlider.Name = "difficultySlider";
-            this.difficultySlider.Size = new System.Drawing.Size(181, 45);
+            this.difficultySlider.Size = new System.Drawing.Size(276, 45);
             this.difficultySlider.TabIndex = 3;
             this.difficultySlider.Value = 1;
+            this.difficultySlider.Scroll += new System.EventHandler(this.difficultySlider_Scroll);
             // 
             // easyLabel
             // 
@@ -95,7 +105,7 @@
             // mediumLabel
             // 
             this.mediumLabel.AutoSize = true;
-            this.mediumLabel.Location = new System.Drawing.Point(141, 38);
+            this.mediumLabel.Location = new System.Drawing.Point(153, 38);
             this.mediumLabel.Name = "mediumLabel";
             this.mediumLabel.Size = new System.Drawing.Size(44, 13);
             this.mediumLabel.TabIndex = 5;
@@ -104,7 +114,7 @@
             // hardLabel
             // 
             this.hardLabel.AutoSize = true;
-            this.hardLabel.Location = new System.Drawing.Point(200, 38);
+            this.hardLabel.Location = new System.Drawing.Point(220, 38);
             this.hardLabel.Name = "hardLabel";
             this.hardLabel.Size = new System.Drawing.Size(30, 13);
             this.hardLabel.TabIndex = 6;
@@ -113,7 +123,7 @@
             // impossibleLabel
             // 
             this.impossibleLabel.AutoSize = true;
-            this.impossibleLabel.Location = new System.Drawing.Point(243, 38);
+            this.impossibleLabel.Location = new System.Drawing.Point(267, 38);
             this.impossibleLabel.Name = "impossibleLabel";
             this.impossibleLabel.Size = new System.Drawing.Size(56, 13);
             this.impossibleLabel.TabIndex = 7;
@@ -162,6 +172,14 @@
             // gameplayTab
             // 
             this.gameplayTab.BackColor = System.Drawing.SystemColors.Control;
+            this.gameplayTab.Controls.Add(this.performanceWarningLabel);
+            this.gameplayTab.Controls.Add(this.playerSpeedLabel);
+            this.gameplayTab.Controls.Add(this.playerSpeedTextbox);
+            this.gameplayTab.Controls.Add(this.movingPlatformsLabel);
+            this.gameplayTab.Controls.Add(this.staticPlatformsLabel);
+            this.gameplayTab.Controls.Add(this.movingPlatformsTextbox);
+            this.gameplayTab.Controls.Add(this.staticPlatformsTextbox);
+            this.gameplayTab.Controls.Add(this.customLabel);
             this.gameplayTab.Controls.Add(this.rangerOption);
             this.gameplayTab.Controls.Add(this.fighterOption);
             this.gameplayTab.Controls.Add(this.explorerOption);
@@ -320,6 +338,86 @@
             this.optionsLabel.TabIndex = 13;
             this.optionsLabel.Text = "Options";
             // 
+            // customLabel
+            // 
+            this.customLabel.AutoSize = true;
+            this.customLabel.Location = new System.Drawing.Point(341, 38);
+            this.customLabel.Name = "customLabel";
+            this.customLabel.Size = new System.Drawing.Size(42, 13);
+            this.customLabel.TabIndex = 22;
+            this.customLabel.Text = "Custom";
+            // 
+            // staticPlatformsTextbox
+            // 
+            this.staticPlatformsTextbox.Location = new System.Drawing.Point(350, 62);
+            this.staticPlatformsTextbox.MaxLength = 4;
+            this.staticPlatformsTextbox.Name = "staticPlatformsTextbox";
+            this.staticPlatformsTextbox.Size = new System.Drawing.Size(100, 20);
+            this.staticPlatformsTextbox.TabIndex = 23;
+            this.staticPlatformsTextbox.Text = "50";
+            this.staticPlatformsTextbox.Visible = false;
+            // 
+            // movingPlatformsTextbox
+            // 
+            this.movingPlatformsTextbox.Location = new System.Drawing.Point(350, 85);
+            this.movingPlatformsTextbox.MaxLength = 4;
+            this.movingPlatformsTextbox.Name = "movingPlatformsTextbox";
+            this.movingPlatformsTextbox.Size = new System.Drawing.Size(100, 20);
+            this.movingPlatformsTextbox.TabIndex = 24;
+            this.movingPlatformsTextbox.Text = "50";
+            this.movingPlatformsTextbox.Visible = false;
+            // 
+            // staticPlatformsLabel
+            // 
+            this.staticPlatformsLabel.AutoSize = true;
+            this.staticPlatformsLabel.Location = new System.Drawing.Point(256, 65);
+            this.staticPlatformsLabel.Name = "staticPlatformsLabel";
+            this.staticPlatformsLabel.Size = new System.Drawing.Size(80, 13);
+            this.staticPlatformsLabel.TabIndex = 25;
+            this.staticPlatformsLabel.Text = "Static Platforms";
+            this.staticPlatformsLabel.Visible = false;
+            // 
+            // movingPlatformsLabel
+            // 
+            this.movingPlatformsLabel.AutoSize = true;
+            this.movingPlatformsLabel.Location = new System.Drawing.Point(256, 88);
+            this.movingPlatformsLabel.Name = "movingPlatformsLabel";
+            this.movingPlatformsLabel.Size = new System.Drawing.Size(88, 13);
+            this.movingPlatformsLabel.TabIndex = 26;
+            this.movingPlatformsLabel.Text = "Moving Platforms";
+            this.movingPlatformsLabel.Visible = false;
+            // 
+            // playerSpeedLabel
+            // 
+            this.playerSpeedLabel.AutoSize = true;
+            this.playerSpeedLabel.Location = new System.Drawing.Point(256, 111);
+            this.playerSpeedLabel.Name = "playerSpeedLabel";
+            this.playerSpeedLabel.Size = new System.Drawing.Size(70, 13);
+            this.playerSpeedLabel.TabIndex = 28;
+            this.playerSpeedLabel.Text = "Player Speed";
+            this.playerSpeedLabel.Visible = false;
+            // 
+            // playerSpeedTextbox
+            // 
+            this.playerSpeedTextbox.Location = new System.Drawing.Point(350, 108);
+            this.playerSpeedTextbox.MaxLength = 4;
+            this.playerSpeedTextbox.Name = "playerSpeedTextbox";
+            this.playerSpeedTextbox.Size = new System.Drawing.Size(100, 20);
+            this.playerSpeedTextbox.TabIndex = 27;
+            this.playerSpeedTextbox.Text = "10";
+            this.playerSpeedTextbox.Visible = false;
+            // 
+            // performanceWarningLabel
+            // 
+            this.performanceWarningLabel.AutoSize = true;
+            this.performanceWarningLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.performanceWarningLabel.Location = new System.Drawing.Point(274, 145);
+            this.performanceWarningLabel.Name = "performanceWarningLabel";
+            this.performanceWarningLabel.Size = new System.Drawing.Size(238, 13);
+            this.performanceWarningLabel.TabIndex = 29;
+            this.performanceWarningLabel.Text = "Note: High values can result in poor performance";
+            this.performanceWarningLabel.Visible = false;
+            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -375,5 +473,13 @@
         private System.Windows.Forms.RadioButton rangerOption;
         private System.Windows.Forms.RadioButton fighterOption;
         private System.Windows.Forms.RadioButton explorerOption;
+        private System.Windows.Forms.Label movingPlatformsLabel;
+        private System.Windows.Forms.Label staticPlatformsLabel;
+        private System.Windows.Forms.TextBox movingPlatformsTextbox;
+        private System.Windows.Forms.TextBox staticPlatformsTextbox;
+        private System.Windows.Forms.Label customLabel;
+        private System.Windows.Forms.Label playerSpeedLabel;
+        private System.Windows.Forms.TextBox playerSpeedTextbox;
+        private System.Windows.Forms.Label performanceWarningLabel;
     }
 }

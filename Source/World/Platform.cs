@@ -14,6 +14,7 @@ namespace TheSurvivor.Source.World
         MOVING_PLATFORM,
     }
 
+    // Interface for setting platform size
     struct PlatformSize
     {
         public Size size;
@@ -24,26 +25,30 @@ namespace TheSurvivor.Source.World
         }
     }
 
+    // Interface for setting platform color
     struct PlatformColor
     {
         public Color color;
 
-        public PlatformColor(int red, int green, int blue)
+        public PlatformColor(int r, int g, int b)
         {
-            color = Color.FromArgb(red, green, blue);
+            color = Color.FromArgb(r, g, b);
         }
     }
 
+    // Interface for setting platform position
     struct PlatformPosition
     {
         public Point position;
 
-        public PlatformPosition(int xpos, int ypos)
+        public PlatformPosition(int x, int y)
         {
-            position = new Point(xpos, ypos);
+            position = new Point(x, y);
         }
     }
 
+    // Represents a platform i.e picturebox and is used for storing individual
+    // data for each platform
     abstract class Platform
     {
         protected PictureBox m_Platform = new PictureBox();
@@ -67,6 +72,7 @@ namespace TheSurvivor.Source.World
             return m_Platform;
         }
 
+        // Generic update method used for all platforms 
         public void Update(ref Player player)
         {
             // Update collision and transformations
@@ -78,6 +84,8 @@ namespace TheSurvivor.Source.World
             UpdateInternal();
         }
 
+        // Platform specific update method. This is abstracted by each specific platform
+        // and consits of specific updates performed, such as moving for the MovingPlatform
         public abstract void UpdateInternal();
     }
 }

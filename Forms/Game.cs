@@ -20,22 +20,17 @@ namespace TheSurvivor
     {
 
         // An instance of the player
-        Player m_Player;
-        Input m_Input = new Input();
-        LevelGeneration m_Level = new LevelGeneration();
-        List<PictureBox> m_Hearts = new List<PictureBox>();
+        Player player;
+        Input input = new Input();
+        LevelGeneration level = new LevelGeneration();
+        List<PictureBox> hearts = new List<PictureBox>();
         
         int lives = 3;
 
-        // The score required to win the game
-        int victoryScore = 2000;
-
         bool isDead = false;
-        bool victory = false;
 
         // Initialise music
         Sound backgroundMusic;
-        Sound victoryMusic;
 
         public Game()
         {
@@ -44,28 +39,25 @@ namespace TheSurvivor
             // Initialise sound tracks
             Logging.Log(LogType.LOG, "Initialsing soundtracks");
             backgroundMusic = new Sound(FileSystem.GetAsset("Sounds/Soundtrack.wav"));
-            victoryMusic = new Sound(FileSystem.GetAsset("Sounds/Victory.wav"));
             
             // Initialise differnet platforms
             Logging.Log(LogType.LOG, "Initialsing level");
-            m_Level.Generate(Controls);
+            level.Generate(Controls);
 
             // Initialise player
             Logging.Log(LogType.LOG, "Initialsing player");
-            m_Player = new Player(playerControl);
-            m_Player.GetPlayer().BackgroundImage = Options.GetPlayerImage();
-            m_Player.GetPlayer().SendToBack();
+            player = new Player(playerControl);
+            player.GetPlayer().BackgroundImage = Options.GetPlayerImage();
+            player.GetPlayer().SendToBack();
 
             // Send the background backwards so that the platforms are visible
             background.SendToBack();
 
             // Initialise hearts
             Logging.Log(LogType.LOG, "Populating heart array");
-            m_Hearts.Add(heart1);
-            m_Hearts.Add(heart2);
-            m_Hearts.Add(heart3);
-
-
+            hearts.Add(heart1);
+            hearts.Add(heart2);
+            hearts.Add(heart3);
 
             // Start playing the soundtrack
             backgroundMusic.Play();
@@ -73,20 +65,19 @@ namespace TheSurvivor
         }
 
         ~Game()
-        {  
-        }
+        {}
 
         private void timer_Tick(object sender, EventArgs e)
         {
             // For each platform type, update them
-            foreach (KeyValuePair<PlatformType, List<Platform>> platformType in m_Level.GetPlatforms())
+            foreach (KeyValuePair<PlatformType, List<Platform>> platformType in level.GetPlatforms())
             {
                 platformType.Value.ForEach(platform =>
                 {
                     // For each platform check if a collision has occured
                     if (!platform.m_Collision)
                     {
-                        platform.Get().Top -= m_Player.GetSpeed();
+                        platform.Get().Top -= Player.GetSpeed();
                     }
                     else
                     {
@@ -95,12 +86,12 @@ namespace TheSurvivor
                     }
 
                     // Update each platform type
-                    platform.Update(ref m_Player);
+                    platform.Update(ref player);
                 });
             }
 
             // Player movement
-            if (m_Input.IsKeyPressed(Keys.A) || m_Input.IsKeyPressed(Keys.D))
+            if (input.IsKeyPressed(Keys.A) || input.IsKeyPressed(Keys.D))
                 xAxisMovementTimer.Start();
 
 
@@ -110,18 +101,6 @@ namespace TheSurvivor
             {
                 GameInformation.previousScore = GameInformation.currentScore;
                 scoreLabel.Text = "Score: " + GameInformation.currentScore.ToString();
-            }
-
-
-            // Fuel
-            //playerFuel.Value--;
-
-
-            // Victory
-            if (GameInformation.currentScore >= victoryScore && !victory)
-            {
-                victoryMusic.Play();
-                victory = true;
             }
 
             // If the player dies then show the death screen
@@ -135,45 +114,45 @@ namespace TheSurvivor
                 Logging.Log(LogType.WARNING, "Closing game and displaying death screen [Reason]: Player has died");
             }
 
+
+            // Resets the platforms if the player has travelled a certain amount making the game go on forever
+            level.Reset(Controls);
         }
 
         private void xAxisMovementTimer_Tick(object sender, EventArgs e)
         {
             // Ensure player is within the window
-            if (m_Player.GetPlayer().Location.X >= ClientSize.Width - m_Player.GetPlayer().Width)
-                m_Player.GetPlayer().Location = new Point(ClientSize.Width - m_Player.GetPlayer().Width, m_Player.GetPlayer().Location.Y);
-            else if (m_Player.GetPlayer().Location.X <= 0)
-                m_Player.GetPlayer().Location = new Point(0, m_Player.GetPlayer().Location.Y);
+            if (player.GetPlayer().Location.X >= ClientSize.Width - player.GetPlayer().Width)
+                player.GetPlayer().Location = new Point(ClientSize.Width - player.GetPlayer().Width, player.GetPlayer().Location.Y);
+            else if (player.GetPlayer().Location.X <= 0)
+                player.GetPlayer().Location = new Point(0, player.GetPlayer().Location.Y);
 
             // Move player on the X axis
-            if (m_Input.IsKeyPressed(Keys.A))
-                m_Player.GetPlayer().Left -= m_Player.GetSpeed();
+            if (input.IsKeyPressed(Keys.A))
+                player.GetPlayer().Left -= Player.GetSpeed();
 
-            if (m_Input.IsKeyPressed(Keys.D))
-                m_Player.GetPlayer().Left += m_Player.GetSpeed();
+            if (input.IsKeyPressed(Keys.D))
+                player.GetPlayer().Left += Player.GetSpeed();
         }
 
         private void Game_KeyDown(object sender, KeyEventArgs e)
         {
-            m_Input.SetKeyPressed(e.KeyCode);
+            input.SetKeyPressed(e.KeyCode);
         }
 
         private void Game_KeyUp(object sender, KeyEventArgs e)
         {
-            m_Input.SetKeyReleased(e.KeyCode);
+            input.SetKeyReleased(e.KeyCode);
 
-            if (!m_Input.IsKeyPressed(Keys.A) || !m_Input.IsKeyPressed(Keys.D))
+            if (!input.IsKeyPressed(Keys.A) || !input.IsKeyPressed(Keys.D))
                 xAxisMovementTimer.Stop();
         }
 
         private void UpdateLives()
         {
-            // TODO: Play hit sound
-
-
             //lives 
             // Remove heart from game
-            m_Hearts[lives - 1].Dispose();
+            hearts[lives - 1].Dispose();
 
             // Decrease life value
             lives--;
@@ -182,7 +161,7 @@ namespace TheSurvivor
             if (lives >= 1)
             {
                 // 'Move' controls down 1000 pixels as a way of resetting
-                foreach (KeyValuePair<PlatformType, List<Platform>> reset in m_Level.GetPlatforms())
+                foreach (KeyValuePair<PlatformType, List<Platform>> reset in level.GetPlatforms())
                 {
                     reset.Value.ForEach(p =>
                     {
@@ -200,35 +179,6 @@ namespace TheSurvivor
                 // If no hearts remain then they are dead
                 isDead = true;
             }
-        }
-
-
-
-
-
-        private void btnContinue_Click(object sender, EventArgs e)
-        {
-            // TODO: Fix input not working after clicking continue
-            pausePanel.Visible = false;
-            //isPaused = false;
-        }
-        
-        private void btnOptions_Click(object sender, EventArgs e)
-        {
-            Options options = new Forms.Options();
-
-            options.Show();
-
-        }
-
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void Game_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            backgroundMusic.Stop();
         }
     }
 

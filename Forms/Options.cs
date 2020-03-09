@@ -15,10 +15,74 @@ namespace TheSurvivor.Forms
         private static Bitmap m_PlayerImage = Properties.Resources.Bomber;
         private static bool m_Music = true;
         private static int m_Difficulty = 1;
+        private static int m_StaticPlatformCount;
+        private static int m_MovingPlatformCount;
+        private static int m_PlayerSpeed;
 
         public Options()
         {
             InitializeComponent();
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+
+            // Select player image
+            if (bomberOption.Checked)
+                m_PlayerImage = Properties.Resources.Bomber;
+            else if (explorerOption.Checked)
+                m_PlayerImage = Properties.Resources.Explorer;
+            else if (fighterOption.Checked)
+                m_PlayerImage = Properties.Resources.Fighter;
+            else if (rangerOption.Checked)
+                m_PlayerImage = Properties.Resources.Ranger;
+
+
+            // Set difficulty
+            m_Difficulty = difficultySlider.Value;
+
+            // If slider option is custom then set custom values
+            if (difficultySlider.Value == 5)
+            {
+                m_StaticPlatformCount   = int.Parse(staticPlatformsTextbox.Text);
+                m_MovingPlatformCount   = int.Parse(movingPlatformsTextbox.Text);
+                m_PlayerSpeed           = int.Parse(playerSpeedTextbox.Text);
+            }
+
+
+            Hide();
+        }
+
+        private void difficultySlider_Scroll(object sender, EventArgs e)
+        {
+            // Change visibility based the difficulty slider setting
+            if (difficultySlider.Value == 5)
+            {
+                staticPlatformsLabel.Visible = true;
+                staticPlatformsTextbox.Visible = true;
+
+                movingPlatformsTextbox.Visible = true;
+                movingPlatformsLabel.Visible = true;
+
+                playerSpeedLabel.Visible = true;
+                playerSpeedTextbox.Visible = true;
+
+                performanceWarningLabel.Visible = true;
+            }
+            else
+            {
+                staticPlatformsLabel.Visible = false;
+                staticPlatformsTextbox.Visible = false;
+
+                movingPlatformsTextbox.Visible = false;
+                movingPlatformsLabel.Visible = false;
+
+                playerSpeedLabel.Visible = false;
+                playerSpeedTextbox.Visible = false;
+
+                performanceWarningLabel.Visible = false;
+
+            }
         }
 
 
@@ -39,28 +103,6 @@ namespace TheSurvivor.Forms
         }
 
 
-        private void btnBack_Click(object sender, EventArgs e)
-        {
-
-            // Select player image
-            if (bomberOption.Checked)
-                m_PlayerImage = Properties.Resources.Bomber;
-            else if (explorerOption.Checked)
-                m_PlayerImage = Properties.Resources.Explorer;
-            else if (fighterOption.Checked)
-                m_PlayerImage = Properties.Resources.Fighter;
-            else if (rangerOption.Checked)
-                m_PlayerImage = Properties.Resources.Ranger;
-
-
-            // Set difficulty
-            m_Difficulty = difficultySlider.Value;
-
-
-
-            Hide();
-        }
-
         static public Bitmap GetPlayerImage()
         {
             return m_PlayerImage;
@@ -71,6 +113,21 @@ namespace TheSurvivor.Forms
             return m_Difficulty;
         }
 
+        static public int GetStaticPlatformCount()
+        {
+            return m_StaticPlatformCount;
+        }
+
+        static public int GetMovingPlatformCount()
+        {
+            return m_MovingPlatformCount;
+        }
+
+        static public int GetPlayerSpeed()
+        {
+            return m_PlayerSpeed;
+        }
+
         static public bool GetMusicSetting()
         {
             if (m_Music)
@@ -78,5 +135,6 @@ namespace TheSurvivor.Forms
             else
                 return false;
         }
+
     }
 }

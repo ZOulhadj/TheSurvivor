@@ -30,20 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.pausePanel = new System.Windows.Forms.Panel();
-            this.btnContinue = new System.Windows.Forms.Button();
-            this.btnOptions = new System.Windows.Forms.Button();
-            this.btnExit = new System.Windows.Forms.Button();
             this.xAxisMovementTimer = new System.Windows.Forms.Timer(this.components);
             this.scoreLabel = new System.Windows.Forms.Label();
             this.playerControl = new System.Windows.Forms.Panel();
             this.background = new System.Windows.Forms.PictureBox();
-            this.fuelLabel = new System.Windows.Forms.Label();
-            this.playerFuel = new System.Windows.Forms.ProgressBar();
             this.heart3 = new System.Windows.Forms.PictureBox();
             this.heart2 = new System.Windows.Forms.PictureBox();
             this.heart1 = new System.Windows.Forms.PictureBox();
-            this.pausePanel.SuspendLayout();
+            this.updatePlatforms = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.background)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heart3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heart2)).BeginInit();
@@ -55,52 +49,6 @@
             this.timer.Enabled = true;
             this.timer.Interval = 1;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
-            // pausePanel
-            // 
-            this.pausePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.pausePanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pausePanel.Controls.Add(this.btnContinue);
-            this.pausePanel.Controls.Add(this.btnOptions);
-            this.pausePanel.Controls.Add(this.btnExit);
-            this.pausePanel.Location = new System.Drawing.Point(224, 122);
-            this.pausePanel.Name = "pausePanel";
-            this.pausePanel.Size = new System.Drawing.Size(476, 493);
-            this.pausePanel.TabIndex = 5;
-            this.pausePanel.Visible = false;
-            // 
-            // btnContinue
-            // 
-            this.btnContinue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnContinue.Location = new System.Drawing.Point(61, 72);
-            this.btnContinue.Name = "btnContinue";
-            this.btnContinue.Size = new System.Drawing.Size(351, 44);
-            this.btnContinue.TabIndex = 2;
-            this.btnContinue.Text = "Continue";
-            this.btnContinue.UseVisualStyleBackColor = true;
-            this.btnContinue.Click += new System.EventHandler(this.btnContinue_Click);
-            // 
-            // btnOptions
-            // 
-            this.btnOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOptions.Location = new System.Drawing.Point(61, 227);
-            this.btnOptions.Name = "btnOptions";
-            this.btnOptions.Size = new System.Drawing.Size(351, 47);
-            this.btnOptions.TabIndex = 1;
-            this.btnOptions.Text = "Options";
-            this.btnOptions.UseVisualStyleBackColor = true;
-            this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);
-            // 
-            // btnExit
-            // 
-            this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.Location = new System.Drawing.Point(61, 404);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(351, 41);
-            this.btnExit.TabIndex = 0;
-            this.btnExit.Text = "Exit";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // xAxisMovementTimer
             // 
@@ -136,33 +84,12 @@
             // 
             this.background.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.background.Image = global::TheSurvivor.Properties.Resources.Background;
-            this.background.Location = new System.Drawing.Point(-4, -6);
+            this.background.Location = new System.Drawing.Point(-2, -8);
             this.background.Name = "background";
             this.background.Size = new System.Drawing.Size(919, 762);
             this.background.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.background.TabIndex = 6;
             this.background.TabStop = false;
-            // 
-            // fuelLabel
-            // 
-            this.fuelLabel.AutoSize = true;
-            this.fuelLabel.BackColor = System.Drawing.Color.Black;
-            this.fuelLabel.Font = new System.Drawing.Font("Stencil", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fuelLabel.ForeColor = System.Drawing.Color.White;
-            this.fuelLabel.Location = new System.Drawing.Point(277, 12);
-            this.fuelLabel.Name = "fuelLabel";
-            this.fuelLabel.Size = new System.Drawing.Size(103, 38);
-            this.fuelLabel.TabIndex = 8;
-            this.fuelLabel.Text = "Fuel:";
-            // 
-            // playerFuel
-            // 
-            this.playerFuel.Location = new System.Drawing.Point(392, 19);
-            this.playerFuel.Maximum = 1000;
-            this.playerFuel.Name = "playerFuel";
-            this.playerFuel.Size = new System.Drawing.Size(100, 24);
-            this.playerFuel.TabIndex = 9;
-            this.playerFuel.Value = 1000;
             // 
             // heart3
             // 
@@ -197,6 +124,10 @@
             this.heart1.TabIndex = 12;
             this.heart1.TabStop = false;
             // 
+            // updatePlatforms
+            // 
+            this.updatePlatforms.Interval = 1;
+            // 
             // Game
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -207,10 +138,7 @@
             this.Controls.Add(this.heart1);
             this.Controls.Add(this.heart2);
             this.Controls.Add(this.heart3);
-            this.Controls.Add(this.playerFuel);
-            this.Controls.Add(this.fuelLabel);
             this.Controls.Add(this.scoreLabel);
-            this.Controls.Add(this.pausePanel);
             this.Controls.Add(this.playerControl);
             this.Controls.Add(this.background);
             this.DoubleBuffered = true;
@@ -219,10 +147,8 @@
             this.Name = "Game";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "The Survior";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Game_FormClosed);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Game_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Game_KeyUp);
-            this.pausePanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.background)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.heart3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.heart2)).EndInit();
@@ -234,19 +160,14 @@
 
         #endregion
         private System.Windows.Forms.Timer timer;
-        private System.Windows.Forms.Panel pausePanel;
-        private System.Windows.Forms.Button btnExit;
-        private System.Windows.Forms.Button btnContinue;
-        private System.Windows.Forms.Button btnOptions;
         private System.Windows.Forms.Panel playerControl;
         private System.Windows.Forms.Timer xAxisMovementTimer;
         private System.Windows.Forms.PictureBox background;
         private System.Windows.Forms.Label scoreLabel;
-        private System.Windows.Forms.Label fuelLabel;
-        private System.Windows.Forms.ProgressBar playerFuel;
         private System.Windows.Forms.PictureBox heart3;
         private System.Windows.Forms.PictureBox heart2;
         private System.Windows.Forms.PictureBox heart1;
+        private System.Windows.Forms.Timer updatePlatforms;
     }
 }
 

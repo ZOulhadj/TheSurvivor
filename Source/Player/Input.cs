@@ -21,16 +21,19 @@ namespace TheSurvivor.Source
             { Keys.D,       KeyEvent.KEY_RELEASED },
         };
 
+        // Set a specific key to the pressed key state
         public void SetKeyPressed(Keys key)
         {
             m_Keys[key] = KeyEvent.KEY_PRESSED;
         }
 
+        // Set a specific key to the released key state
         public void SetKeyReleased(Keys key)
         {
             m_Keys[key] = KeyEvent.KEY_RELEASED;
         }
 
+        // Checks if a specific key is currently being pressed
         public bool IsKeyPressed(Keys key)
         {
             return m_Keys[key] == KeyEvent.KEY_PRESSED;

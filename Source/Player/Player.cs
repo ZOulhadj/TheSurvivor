@@ -13,7 +13,7 @@ namespace TheSurvivor.Source
     class Player
     {
         private Panel m_Player;
-        private int m_PlayerSpeed;
+        private static int m_PlayerSpeed;
         public bool m_Collision = false;
         private bool m_IsJumping = false;
 
@@ -21,7 +21,7 @@ namespace TheSurvivor.Source
         {
             m_Player = player;
 
-            // Change player speed based on difficulty
+            // Change player speed based on difficulty set in the options menu
             switch (Options.GetDifficulty())
             {
                 case 1:
@@ -36,6 +36,9 @@ namespace TheSurvivor.Source
                 case 4:
                     m_PlayerSpeed = 40;
                     break;
+                case 5:
+                    m_PlayerSpeed = Options.GetPlayerSpeed();
+                    break;
             }
         }
 
@@ -47,6 +50,6 @@ namespace TheSurvivor.Source
 
         public Panel GetPlayer() { return m_Player; }
 
-        public int GetSpeed() { return m_PlayerSpeed; }
+        public static int GetSpeed() { return m_PlayerSpeed; }
     }
 }

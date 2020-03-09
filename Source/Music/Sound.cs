@@ -18,8 +18,8 @@ namespace TheSurvivor.Source.Music
         
         public Sound(string filePath)
         {
+            // Load sound file
             Logging.Log(LogType.LOG, "Loading sound asset located at: " + filePath);
-
             mediaPlayer.Open(new Uri(filePath));
 
             mediaPlayer.MediaFailed += (o, args) =>
