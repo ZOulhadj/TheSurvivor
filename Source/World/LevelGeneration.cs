@@ -11,6 +11,7 @@ namespace TheSurvivor.Source
 {
     class LevelGeneration
     {
+        // Holds the list of all controls used in the game form
         private Control.ControlCollection m_Controls;
 
         // m_Random seed generator used for generating m_Randomness and is used for
@@ -115,45 +116,31 @@ namespace TheSurvivor.Source
 
             }
 
+            // Add platform type list to the platforms dictionary
             m_Platforms.Add(platformType, platform);
         }
-        int i = 1;
-        public void Reset(Control.ControlCollection controls)
+
+        public void Reset()
         {
             m_LevelOffset += Player.GetSpeed();
 
             if (m_LevelOffset >= m_LevelDistance)
             {
-                foreach (Control controlItem in controls)
-                {
-                    if (controlItem.Tag == "platform")
-                    {
-                        // Note: Disposing the control on its own seems to not work sometimes.
-                        // This is because it possibly does not have enough time to release
-                        // the control before being redraw? To avoid a platform from being
-                        // show when not meant to, simply make it not visible.
+                var platformsToRemove = m_Controls.OfType<PictureBox>().Where(platform => (string)platform.Tag == "platform").ToArray();
 
-                        // TODO: Issue still occurs... (Only runs 50 times instead of 100)
-                        Console.WriteLine("Disposing platform: " + i);
-                        i += 1;
-                        // TODO: Check if a hidden platform affects collision with the player
-                        controlItem.BackColor = Color.Black;
-                        controlItem.Visible = false;
-                        controlItem.Dispose();
-                    }
-                }
+                foreach (Control controlItem in platformsToRemove)
+                    controlItem.Dispose();
 
                 // Generate a new set of platforms
                 Generate();
 
                 // Send the background backwards so that the platforms are visible
-                Control background = controls.Find("background", false).FirstOrDefault();
+                Control background = m_Controls.Find("background", false).FirstOrDefault();
                 background.SendToBack();
 
                 // Reset level offset
                 m_LevelOffset = 0;
             }
-            
         }
 
         public Dictionary<PlatformType, List<Platform>> GetPlatforms()

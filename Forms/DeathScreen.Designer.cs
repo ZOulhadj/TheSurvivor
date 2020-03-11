@@ -80,9 +80,9 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::TheSurvivor.Properties.Resources.DeathTroll;
-            this.pictureBox2.Location = new System.Drawing.Point(750, 12);
+            this.pictureBox2.Location = new System.Drawing.Point(580, 65);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(38, 34);
+            this.pictureBox2.Size = new System.Drawing.Size(72, 67);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 5;
             this.pictureBox2.TabStop = false;

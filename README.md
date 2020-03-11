@@ -1,10 +1,12 @@
-﻿# The Survior (WIP)
+﻿# The Survior
 
-A 2D game created using C# and Windows forms. The game itself is based in space
+This is a 2D game created using C# and Windows forms. The game itself is based in space
 and the objective is to avoid the incoming platforms and survive as long as possible.
 
-A lot of features are currently being developed and are subject to change. Below are
-images of the current state of the game.
+Below are preview images of the game. This took around 1 month of development on and off.
+
+Feel free to download and edit as you please. All images used in this game come from 
+Google and belong to the respective owners and not me.
 
 ## Preview
 

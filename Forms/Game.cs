@@ -1,14 +1,12 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-
-using TheSurvivor.Source;
 using TheSurvivor.Forms;
-using TheSurvivor.Source.Utilities;
+using TheSurvivor.Source;
 using TheSurvivor.Source.Music;
+using TheSurvivor.Source.Utilities;
 using TheSurvivor.Source.World;
 
 namespace TheSurvivor
@@ -118,7 +116,7 @@ namespace TheSurvivor
 
 
             // Resets the platforms if the player has travelled a certain amount making the game go on forever
-            level.Reset(Controls);
+            level.Reset();
         }
 
         private void xAxisMovementTimer_Tick(object sender, EventArgs e)

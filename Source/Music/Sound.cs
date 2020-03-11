@@ -1,9 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 using TheSurvivor.Forms;
@@ -22,11 +17,13 @@ namespace TheSurvivor.Source.Music
             Logging.Log(LogType.LOG, "Loading sound asset located at: " + filePath);
             mediaPlayer.Open(new Uri(filePath));
 
+            // If soundtrack is not found then print an error
             mediaPlayer.MediaFailed += (o, args) =>
             {
                 Logging.Log(LogType.ERROR, "Failed to load sound asset");
             };
 
+            // Set soundtrack volume
             mediaPlayer.Volume = 0.05;
 
             // Find out if the sound option is selected
