@@ -22,7 +22,7 @@ namespace TheSurvivor
         // An instance of the player
         Player player;
         Input input = new Input();
-        LevelGeneration level = new LevelGeneration();
+        LevelGeneration level;
         List<PictureBox> hearts = new List<PictureBox>();
         
         int lives = 3;
@@ -42,7 +42,8 @@ namespace TheSurvivor
             
             // Initialise differnet platforms
             Logging.Log(LogType.LOG, "Initialsing level");
-            level.Generate(Controls);
+            level = new LevelGeneration(Controls);
+            level.Generate();
 
             // Initialise player
             Logging.Log(LogType.LOG, "Initialsing player");
@@ -67,6 +68,7 @@ namespace TheSurvivor
         ~Game()
         {}
 
+        // Main update loop
         private void timer_Tick(object sender, EventArgs e)
         {
             // For each platform type, update them

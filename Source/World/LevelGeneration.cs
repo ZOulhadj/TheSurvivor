@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.Collections;
 using System.Windows.Forms;
-
-using TheSurvivor.Source.World;
-using TheSurvivor.Source.Utilities;
+using System.Drawing;
 using TheSurvivor.Forms;
-using System.Threading;
+using TheSurvivor.Source.Utilities;
+using TheSurvivor.Source.World;
 
 namespace TheSurvivor.Source
 {
     class LevelGeneration
     {
+        private Control.ControlCollection m_Controls;
+
         // m_Random seed generator used for generating m_Randomness and is used for
         // the platform locations.
         private Random m_Random = new Random();
@@ -25,7 +22,7 @@ namespace TheSurvivor.Source
         private Dictionary<PlatformType, List<Platform>> m_Platforms = new Dictionary<PlatformType, List<Platform>>();
 
         // Window dimensions (Hard coded values since the window will not be resizable)
-        int width = 476, height = 493;
+        int width = 930, height = 790;
 
         // The number of platforms for each type (set in the generation stage)
         private int staticPlatformCount;
@@ -37,7 +34,12 @@ namespace TheSurvivor.Source
         // This is used for determining when to reset and generate new platforms
         private int m_LevelOffset = 0;
 
-        public void Generate(Control.ControlCollection controls)
+        public LevelGeneration(Control.ControlCollection controls)
+        {
+            m_Controls = controls;
+        }
+
+        public void Generate()
         {
             // If generating platforms after a reset then remove all platforms for a fresh start
             if (m_Platforms.Count > 0)
@@ -68,58 +70,54 @@ namespace TheSurvivor.Source
                     break;
             }
 
-            List<Platform> staticPlatforms = new List<Platform>(staticPlatformCount);
-            Logging.Log(LogType.LOG, "Initialsing " + staticPlatformCount + " static platforms");
-            for (int i = 0; i < staticPlatformCount; ++i)
-            {
-                // Initialise moving platform
-                StaticPlatform sp = new StaticPlatform();
-                sp.platformSize = new PlatformSize(50, 20);
-                sp.platformColor = new PlatformColor(0, 255, 0);
-                sp.platformPosition = new PlatformPosition(m_Random.Next(0, width),
-                                                           m_Random.Next(height, m_LevelDistance));
+            // Generate platforms
+            GeneratePlatform(PlatformType.STATIC_PLATFORM, staticPlatformCount, Color.Gold);
+            GeneratePlatform(PlatformType.MOVING_PLATFORM, movingPlatformCount, Color.Cyan);
 
-                // Push all initialised values to picturebox control
-                sp.Set();
-
-                // Add this picturebox control to the from control list 
-                // for it to be rendered
-                controls.Add(sp.Get());
-
-                // Add to moving platform list
-                staticPlatforms.Add(sp);
-            }
-
-
-            List<Platform> movingPlatforms = new List<Platform>(movingPlatformCount);
-            Logging.Log(LogType.LOG, "Initialsing " + movingPlatformCount + " moving platforms");
-            for (int i = 0; i < movingPlatformCount; ++i)
-            {
-                // Initialise moving platform
-                MovingPlatform mp = new MovingPlatform();
-                mp.platformSize = new PlatformSize(50, 20);
-                mp.platformColor = new PlatformColor(255, 60, 120);
-                mp.platformPosition = new PlatformPosition(m_Random.Next(0, width),
-                                                           m_Random.Next(height, m_LevelDistance));
-                mp.movementDirection = (MovementDirection)m_Random.Next(0, 2);
-
-                // Push all initialised values to picturebox control
-                mp.Set();
-
-                // Add this picturebox control to the from control list 
-                // for it to be rendered
-                controls.Add(mp.Get());
-
-                // Add to moving platform list
-                movingPlatforms.Add(mp);
-            }
-
-
-            // Add moving platform to platform list
-            m_Platforms.Add(PlatformType.STATIC_PLATFORM, staticPlatforms);
-            m_Platforms.Add(PlatformType.MOVING_PLATFORM, movingPlatforms);
         }
 
+        private void GeneratePlatform(PlatformType platformType, int platformCount, Color color)
+        {
+            List<Platform> platform = new List<Platform>(platformCount);
+            Logging.Log(LogType.LOG, "Initialsing " + platformCount + " platforms");
+            for (int i = 0; i < platformCount; ++i)
+            {
+                Platform platformObject = null;
+
+                // Instantiate specific platform object based on what platform type will be generated
+                switch (platformType)
+                {
+                    case PlatformType.STATIC_PLATFORM:
+                        platformObject = new StaticPlatform();
+                        break;
+                    case PlatformType.MOVING_PLATFORM:
+                        platformObject = new MovingPlatform();
+                        break;
+                }
+                
+                // Initialise platform settings
+                platformObject.platformSize = new PlatformSize(50, 20);
+                platformObject.platformColor = new PlatformColor(color.R, color.G, color.B);
+                platformObject.platformPosition = new PlatformPosition(m_Random.Next(0, width - 50),
+                                                            m_Random.Next(height, m_LevelDistance));
+
+                // Push all initialised values to picturebox control
+                platformObject.Set();
+
+
+                // Add to moving platform list
+                platform.Add(platformObject);
+
+                // Add this picturebox control to the from control list 
+                // for it to be rendered
+                m_Controls.Add(platformObject.Get());
+                        
+
+            }
+
+            m_Platforms.Add(platformType, platform);
+        }
+        int i = 1;
         public void Reset(Control.ControlCollection controls)
         {
             m_LevelOffset += Player.GetSpeed();
@@ -128,23 +126,25 @@ namespace TheSurvivor.Source
             {
                 foreach (Control controlItem in controls)
                 {
-                    if ((string)controlItem.Tag == "platform")
+                    if (controlItem.Tag == "platform")
                     {
                         // Note: Disposing the control on its own seems to not work sometimes.
                         // This is because it possibly does not have enough time to release
                         // the control before being redraw? To avoid a platform from being
                         // show when not meant to, simply make it not visible.
 
-                        // TODO: Issue still occurs...
-                        
+                        // TODO: Issue still occurs... (Only runs 50 times instead of 100)
+                        Console.WriteLine("Disposing platform: " + i);
+                        i += 1;
                         // TODO: Check if a hidden platform affects collision with the player
+                        controlItem.BackColor = Color.Black;
                         controlItem.Visible = false;
                         controlItem.Dispose();
                     }
                 }
 
                 // Generate a new set of platforms
-                Generate(controls);
+                Generate();
 
                 // Send the background backwards so that the platforms are visible
                 Control background = controls.Find("background", false).FirstOrDefault();
